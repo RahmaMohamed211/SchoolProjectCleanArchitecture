@@ -36,7 +36,9 @@ namespace SchoolProject.Service.Implementations
         {
           //  var student =await _studentRepository.GetByIdAsync(id);
           var student =_studentRepository.GetTableNoTracking()
-                .Include(x=>x.Department).Where(x=>x.StudID == id).FirstOrDefault();
+                .Include(x=>x.Department)
+                .Where(x=>x.StudID == id)
+                .FirstOrDefault();
             return student;
         }
 
@@ -79,6 +81,7 @@ namespace SchoolProject.Service.Implementations
             var trans = _studentRepository.BeginTransaction();
             try
             {
+                
                 await _studentRepository.DeleteAsync(student);
               await trans.CommitAsync();
                 return "success";

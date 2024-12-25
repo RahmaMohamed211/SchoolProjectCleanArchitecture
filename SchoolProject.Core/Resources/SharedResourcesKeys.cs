@@ -19,7 +19,8 @@ namespace SchoolProject.Core.Resources
         public const string UnAuthorized = "UnAuthorized"; 
         public const string BadRequest = "BadRequest"; 
         public const string IsExist = "IsExist"; 
-       
+        public const string IsNoExist = "IsNoExist"; 
+        public const string DepartmentId = "DepartmentId";
         public const string UnprocessableEntity = "UnprocessableEntity"; 
 
 

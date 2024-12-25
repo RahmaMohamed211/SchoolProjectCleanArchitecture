@@ -33,6 +33,12 @@ namespace SchoolProject.Service.Implementations
             return student;
 
         }
+
+        public async Task<bool> IsDepartmentIdExist(int departmentId)
+        {
+            ///Any اى واحد فيهم يكون بيساوى id 
+           return await _departmentRepo.GetTableNoTracking().AnyAsync(x=>x.DId.Equals(departmentId ));
+        }
         #endregion
 
     }
