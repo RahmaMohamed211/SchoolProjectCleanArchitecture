@@ -31,6 +31,9 @@ namespace SchoolProject.Data.AppMetaData
         {
             public const string Prefix = Rule + "Department";
             public const string GetByID = Prefix + "/Id";
+            public const string Create = Prefix + "/Create";
+            public const string Edit = Prefix + "/Edit";
+            public const string Delete = Prefix + singleRoute;
 
         }
     }

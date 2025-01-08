@@ -11,6 +11,8 @@ using Microsoft.Identity.Client;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using SchoolProject.Data.Entities.Identity;
 namespace SchoolProject.Api
 {
     public class Program
@@ -35,9 +37,15 @@ namespace SchoolProject.Api
             });
 
             #region Dependency injection
+        
             builder.Services.AddInfrastructureDependencies()
                 .AddServiceDepandencies()
-                .AddCoreDepandencies();
+                .AddCoreDepandencies()
+                .AddServiceRegistration();
+
+
+         
+           
 
 
             #endregion
@@ -46,7 +54,7 @@ namespace SchoolProject.Api
             #region Localization
 
 
-            
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddLocalization(opt =>
                 {
