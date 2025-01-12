@@ -39,10 +39,11 @@ namespace SchoolProject.Data.AppMetaData
         public static class ApplicationUserRouting
         {
             public const string Prefix = Rule + "User";
-            public const string GetByID = Prefix + "/Id";
+            public const string GetByID = Prefix + singleRoute;
             public const string Create = Prefix + "/Create";
             public const string Edit = Prefix + "/Edit";
             public const string Delete = Prefix + singleRoute;
+            public const string Paginted = Prefix + "/Paginted";
 
         }
         
