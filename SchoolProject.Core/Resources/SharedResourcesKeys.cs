@@ -22,6 +22,10 @@ namespace SchoolProject.Core.Resources
         public const string IsNoExist = "IsNoExist"; 
         public const string DepartmentId = "DepartmentId";
         public const string UnprocessableEntity = "UnprocessableEntity"; 
+        public const string PasswordNotEquelConfirmPass = "PasswordNotEquelConfirmPass"; 
+        public const string EmailIsExist = "EmailIsExist"; 
+        public const string UserNameIsExist = "UserNameIsExist"; 
+        public const string FaildToAddUser = "FaildToAddUser"; 
 
 
     }
