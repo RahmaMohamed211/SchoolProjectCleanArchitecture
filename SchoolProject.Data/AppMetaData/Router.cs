@@ -36,6 +36,16 @@ namespace SchoolProject.Data.AppMetaData
             public const string Delete = Prefix + singleRoute;
 
         }
+        public static class ApplicationUserRouting
+        {
+            public const string Prefix = Rule + "User";
+            public const string GetByID = Prefix + "/Id";
+            public const string Create = Prefix + "/Create";
+            public const string Edit = Prefix + "/Edit";
+            public const string Delete = Prefix + singleRoute;
+
+        }
+        
     }
 }
 

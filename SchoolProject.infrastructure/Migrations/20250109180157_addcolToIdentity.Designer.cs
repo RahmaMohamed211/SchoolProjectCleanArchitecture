@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolProject.infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SchoolProject.infrastructure.Data;
 namespace SchoolProject.infrastructure.Migrations
 {
     [DbContext(typeof(APPDBContext))]
-    partial class APPDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250109180157_addcolToIdentity")]
+    partial class addcolToIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

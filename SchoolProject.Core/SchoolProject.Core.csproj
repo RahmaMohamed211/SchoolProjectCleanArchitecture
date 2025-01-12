@@ -36,4 +36,11 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\ApplicationUser\Queries\Handlers\" />
+    <Folder Include="Features\ApplicationUser\Queries\Models\" />
+    <Folder Include="Features\ApplicationUser\Queries\" />
+    <Folder Include="Mapping\ApplicationUser\Queries\" />
+  </ItemGroup>
+
 </Project>
