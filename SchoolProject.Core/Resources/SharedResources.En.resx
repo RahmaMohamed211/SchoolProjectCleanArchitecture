@@ -176,8 +176,11 @@
 	<data name="FaildToAddUser" xml:space="preserve">
     <value>Failed To Add User.</value>
   </data>
-	<data name="UpdateFailed" xml:space="preserve">
+  <data name="UpdateFailed" xml:space="preserve">
     <value>Update Operation Failed
 </value>
+  </data>
+  <data name="DeletedFailed" xml:space="preserve">
+    <value>Delete Operation Failed</value>
   </data>
 </root>
