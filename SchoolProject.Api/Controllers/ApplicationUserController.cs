@@ -35,6 +35,13 @@ namespace SchoolProject.Api.Controllers
             return NewResult(await Mediator.Send(new GetUserByIdQuery(id)));
 
         }
+        [HttpPut(Router.ApplicationUserRouting.Edit)]
+        public async Task<IActionResult> Edit([FromBody] EditUserCommand command)
+        {
+
+            return NewResult(await Mediator.Send(command));
+
+        }
         [HttpDelete(Router.ApplicationUserRouting.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
@@ -42,7 +49,13 @@ namespace SchoolProject.Api.Controllers
             return NewResult(await Mediator.Send(new DeleteUserCommand(id)));
 
         }
+        [HttpPut(Router.ApplicationUserRouting.ChangePassword)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
+        {
 
+            return NewResult(await Mediator.Send(command));
+
+        }
 
     }
 }
