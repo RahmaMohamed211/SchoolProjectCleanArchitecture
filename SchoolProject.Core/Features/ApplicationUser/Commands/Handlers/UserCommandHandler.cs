@@ -15,9 +15,6 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
 {
-    public class UserCommandHandler : ResponseHandler
-        , IRequestHandler<AddUserCommand, Response<string>>
-        , IRequestHandler<EditUserCommand, Response<string>>
     {
         private readonly IStringLocalizer<SharedResources> _sharedLocalizer;
         private readonly IMapper _mapper;

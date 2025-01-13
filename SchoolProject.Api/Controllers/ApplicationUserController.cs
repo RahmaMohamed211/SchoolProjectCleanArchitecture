@@ -41,6 +41,6 @@ namespace SchoolProject.Api.Controllers
 
             return NewResult(await Mediator.Send(command));
 
-        }
     }
+}
 }
