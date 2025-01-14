@@ -41,7 +41,7 @@ namespace SchoolProject.Api
             builder.Services.AddInfrastructureDependencies()
                 .AddServiceDepandencies()
                 .AddCoreDepandencies()
-                .AddServiceRegistration();
+                .AddServiceRegistration(builder.Configuration);
 
 
          
@@ -122,6 +122,8 @@ namespace SchoolProject.Api
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseCors(CORS);
+
+            app.UseAuthentication();
             app.UseAuthorization();
             
 
