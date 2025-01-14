@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.ApplicationUser.Commands.Models;
@@ -18,6 +19,7 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
         ,IRequestHandler<AddUserCommand,Response<string>>
         ,IRequestHandler<EditUserCommand,Response<string>>
         ,IRequestHandler<DeleteUserCommand, Response<string>>
+        ,IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
         private readonly IStringLocalizer<SharedResources> _sharedLocalizer;
         private readonly IMapper _mapper;
@@ -67,6 +69,12 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
             if(Olduser == null) return NotFound<string>();
             //mapping
             var newUser=_mapper.Map(request,Olduser);
+
+            //if username is Exist
+            var userByUserName= await _userManager.Users.FirstOrDefaultAsync(x=>x.UserName==newUser.UserName&&x.Id!=newUser.Id);
+            //username is exist
+            if(userByUserName != null) return BadRequest<string>(_sharedLocalizer[SharedResourcesKeys.UserNameIsExist]);
+
             //update
             var result = await _userManager.UpdateAsync(newUser);
             //result is not success
@@ -89,6 +97,25 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
 
 
 
+        }
+
+        public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            //get user
+            //check if user is exist
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+            //if Not Exist notfound
+            if (user == null) return NotFound<string>();
+
+            //Change User Password
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            //var user1=await _userManager.HasPasswordAsync(user);
+            //await _userManager.RemovePasswordAsync(user);
+            //await _userManager.AddPasswordAsync(user, request.NewPassword);
+
+            //result
+            if (!result.Succeeded) return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+            return Success((string)_sharedLocalizer[SharedResourcesKeys.Success]);
         }
         #endregion
     }

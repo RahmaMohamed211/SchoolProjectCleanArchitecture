@@ -36,4 +36,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Authentication\Command\Results\" />
+    <Folder Include="Features\Authentication\Queires\" />
+  </ItemGroup>
+
 </Project>

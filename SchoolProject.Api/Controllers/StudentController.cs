@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
@@ -10,6 +11,7 @@ namespace SchoolProject.Api.Controllers
 {
    
     [ApiController]
+    [Authorize]
     public class StudentController :AppControllerBase
     {
 
@@ -21,6 +23,7 @@ namespace SchoolProject.Api.Controllers
             return Ok(response);
 
         }
+        [AllowAnonymous]
         [HttpGet(Router.StudentRouting.Paginted)]
         public async Task<IActionResult> Paginted([FromQuery] GetStudentPaginatedListQuery query  )
         {
