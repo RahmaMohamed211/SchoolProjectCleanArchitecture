@@ -15,5 +15,7 @@ namespace SchoolProject.Data.Helpers
         public bool ValidateAudience { get; set; }
         public bool ValidateLifeTime { get; set; }
         public bool ValidateIssuserSigingKey { get; set; }
+        public int AccessTokenExpireDate { get; set; }
+        public int RefreshTokenExpireDate { get; set; }
     }
 }

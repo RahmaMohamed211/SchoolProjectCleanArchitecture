@@ -32,6 +32,7 @@ namespace SchoolProject.infrastructure.Data
         public DbSet<DepartmentSubject> DepartmentSubjects { get; set; }    
 
         public DbSet<Subject> Subjects { get; set; }    
+        public DbSet<UserRefreshToken> UserRefreshToken { get; set; }    
 
 
         public DbSet<StudentSubject> StudentSubjects { get; set; }
