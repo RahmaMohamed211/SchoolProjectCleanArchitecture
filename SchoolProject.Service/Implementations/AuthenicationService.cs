@@ -95,7 +95,7 @@ namespace SchoolProject.Service.Implementations
                 new Claim(nameof(UserClaimModel.PhoneNumber),user.PhoneNumber),
             };
             return claims;
-        } 
+        }
         #endregion
 
     }
