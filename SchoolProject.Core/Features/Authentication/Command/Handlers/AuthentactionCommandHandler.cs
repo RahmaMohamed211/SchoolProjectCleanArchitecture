@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 namespace SchoolProject.Core.Features.Authentication.Command.Handlers
 {
     public class AuthentactionCommandHandler : ResponseHandler,
-        IRequestHandler<SignInCommand, Response<JwtAuthResult>>
+        IRequestHandler<SignInCommand, Response<JwtAuthResult>>,
+        IRequestHandler<RefreshTokenCommand, Response<JwtAuthResult>>
     {
         #region fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
@@ -51,6 +52,14 @@ namespace SchoolProject.Core.Features.Authentication.Command.Handlers
             var result =  await _authenicationService.GetJWTToken(user);
             //return token
             return Success(result);
+        }
+
+        public async Task<Response<JwtAuthResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _authenicationService.GetRefreshToken(request.AccessToken,request.RefreshToken);
+            return Success( result);
+
+
         }
         #endregion
 

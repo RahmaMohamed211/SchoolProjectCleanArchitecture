@@ -51,9 +51,10 @@ namespace SchoolProject.Data.AppMetaData
         {
             public const string Prefix = Rule + "Authentication";   
             public const string SignIn = Prefix + "/SignIn";
-            public const string Edit = Prefix + "/Edit";
+            public const string RefreshToken = Prefix + "/RefreshToken";
             public const string Delete = Prefix + singleRoute;
             public const string Paginted = Prefix + "/Paginted";
+            public const string ValidateToken = Prefix + "/ValidateToken";
 
         }
         
