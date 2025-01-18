@@ -110,42 +110,8 @@ namespace SchoolProject.Service.Implementations
             return (JwtToken, accessToken);
         }
 
-        public async Task<JwtAuthResult> GetRefreshToken(string accessToken, string refreshToken)
+        public async Task<JwtAuthResult> GetRefreshToken(User user,JwtSecurityToken token,DateTime? expiryDate,string refreshToken)
         {
-            //read token to get cliams
-            var token = ReadJWTToken(accessToken);
-            if (token == null ||!token.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
-            {
-                throw new SecurityTokenException("Algrothim is wrong");
-            }
-            if (token.ValidTo > DateTime.UtcNow)
-            {
-                throw new SecurityTokenException("Token is not Expired");
-            }
-            //get user
-            var userId = 2;
-          //  var userId = token.Claims.FirstOrDefault(x => x.Type == nameof(UserClaimModel.Id)).Value;
-           var userRefreshToken= await _refershTokenRepository.GetTableNoTracking()
-                                             .FirstOrDefaultAsync(x=>x.Token==accessToken&&
-                                                                     x.RefreshToken==refreshToken
-                                                                     && x.UserId==4);
-            if (userRefreshToken == null) 
-            {
-                throw new SecurityTokenException("Refresh Token is Not found");
-            }
-            //validations token,refreshtoken
-            if (userRefreshToken.ExpiryDate < DateTime.UtcNow)
-            {
-                userRefreshToken.IsRevoked = true;
-                userRefreshToken.IsUsed = false; 
-                await _refershTokenRepository.UpdateAsync(userRefreshToken);
-                throw new SecurityTokenException(" Refresh Token is  Expired");
-            }
-            var user= await _userManager.FindByIdAsync("4");
-            if (user == null)
-            {
-                throw new SecurityTokenException("user is not found");  
-            }
             var (jwtSecurityToken, newToken) = GenerateJWTToken(user);
             
             //token is expire or not
@@ -156,13 +122,13 @@ namespace SchoolProject.Service.Implementations
             var refreshTokenResult = new RefreshToken();
             refreshTokenResult.UserName= token.Claims.FirstOrDefault(x => x.Type == nameof(UserClaimModel.UserName)).Value;
             refreshTokenResult.TokenString = refreshToken;
-            refreshTokenResult.ExpireAt = userRefreshToken.ExpiryDate;
+            refreshTokenResult.ExpireAt = (DateTime)expiryDate;
             response.refreshToken = refreshTokenResult;
             return response;    
 
 
         }
-        private JwtSecurityToken ReadJWTToken(string accessToken)
+        public JwtSecurityToken ReadJWTToken(string accessToken)
         {
             if (string.IsNullOrEmpty(accessToken))
             {
@@ -188,12 +154,13 @@ namespace SchoolProject.Service.Implementations
                 ValidateAudience = _jwtSettings.ValidateAudience,
                 ValidateLifetime = _jwtSettings.ValidateLifeTime,
             };
-            var validator = handler.ValidateToken(accessToken, parameters, out SecurityToken validatedToken);
             try
             {
+                var validator = handler.ValidateToken(accessToken, parameters, out SecurityToken validatedToken);
+            
                 if (validator == null)
                 {
-                    throw new SecurityTokenExpiredException("Invalid token");
+                   return "InvalidToken";
 
                 }
                 return "NotExpired";
@@ -204,6 +171,42 @@ namespace SchoolProject.Service.Implementations
                 return ex.Message;
             }
 
+        }
+
+        public async Task<(string,DateTime?)> ValidateDetails(JwtSecurityToken token, string AccessToken, string RefreshToken)
+        {
+            if (token == null || !token.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
+            {
+              
+                return ("AlgrothimIsWrong",null);
+            }
+            if (token.ValidTo > DateTime.UtcNow)
+            {
+                
+                return ("TokenIsNotExpired", null);
+            }
+            //get user
+           
+             var userId = token.Claims.FirstOrDefault(x => x.Type == nameof(UserClaimModel.Id)).Value;
+            var userRefreshToken =  _refershTokenRepository.GetTableNoTracking()
+                                              .FirstOrDefault(x => x.Token == AccessToken &&
+                                                                      x.RefreshToken == RefreshToken
+                                                                      && x.UserId == int.Parse(userId));
+            if (userRefreshToken == null)
+            {
+                return("RefreshTokenIsNotFound",null);
+            }
+            //validations token,refreshtoken
+            if (userRefreshToken.ExpiryDate < DateTime.UtcNow)
+            {
+                userRefreshToken.IsRevoked = true;
+                userRefreshToken.IsUsed = false;
+                await _refershTokenRepository.UpdateAsync(userRefreshToken);
+                return(" RefreshTokenIsExpired",null);
+            }
+            var expiredate= userRefreshToken.ExpiryDate;
+          
+            return (userId, expiredate);
         }
         #endregion
 
