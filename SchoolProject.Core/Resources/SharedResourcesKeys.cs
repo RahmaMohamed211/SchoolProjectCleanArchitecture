@@ -33,6 +33,13 @@ namespace SchoolProject.Core.Resources
         public const string EmailIsNotExist = "EmailIsNotExist";
         public const string PasswordNotCorrect = "PasswordNotCorrect";
 
+        public const string AlgrothimIsWrong = "AlgrothimIsWrong";
+        public const string TokenIsNotExpired = "TokenIsNotExpired";
+        public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
+        public const string RefreshTokenIsExpired = "RefreshTokenIsExpired";
+        public const string TokenIsExpired = "TokenIsExpired";
+        public const string InvaildToken = "InvaildToken";
+
 
     }
 }

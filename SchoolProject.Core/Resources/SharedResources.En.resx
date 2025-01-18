@@ -192,4 +192,22 @@
   <data name="PasswordNotCorrect" xml:space="preserve">
     <value>Password is Not Correct</value>
   </data>
+  <data name="AlgrothimIsWrong" xml:space="preserve">
+    <value>Algrothim Is Wrong</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>Token Is Not Expired</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>Refresh Token Is Not Found</value>
+  </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>Refresh Token Is Expired</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>Token Is Expired</value>
+  </data>
+  <data name="InvaildToken" xml:space="preserve">
+    <value>InvaildToken</value>
+  </data>
 </root>

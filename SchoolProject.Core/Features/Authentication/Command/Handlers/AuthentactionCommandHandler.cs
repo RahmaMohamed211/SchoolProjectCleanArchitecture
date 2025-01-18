@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
+using Microsoft.IdentityModel.Tokens;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Authentication.Command.Models;
 using SchoolProject.Core.Resources;
@@ -10,6 +12,7 @@ using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,7 +59,28 @@ namespace SchoolProject.Core.Features.Authentication.Command.Handlers
 
         public async Task<Response<JwtAuthResult>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var result = await _authenicationService.GetRefreshToken(request.AccessToken,request.RefreshToken);
+            var jwtToken =_authenicationService.ReadJWTToken(request.AccessToken);
+            if (jwtToken == null)
+            {
+                return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.InvaildToken]);
+            }
+
+            var userIdAndExpireDate = await _authenicationService.ValidateDetails(jwtToken, request.AccessToken, request.RefreshToken);
+            switch (userIdAndExpireDate)
+            {
+                case ("AlgrothimIsWrong",null):return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.AlgrothimIsWrong]);
+                case ("TokenIsNotExpired",null): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.TokenIsNotExpired]);
+                case ("RefreshTokenIsNotFound",null): return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.RefreshTokenIsNotFound]);
+                case ("RefreshTokenIsExpired",null) : return Unauthorized<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.RefreshTokenIsExpired]);
+            }
+            var (userId, expiredate) = userIdAndExpireDate;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound<JwtAuthResult>();
+            }
+
+            var result = await _authenicationService.GetRefreshToken(user,jwtToken,expiredate,request.RefreshToken);
             return Success( result);
 
 

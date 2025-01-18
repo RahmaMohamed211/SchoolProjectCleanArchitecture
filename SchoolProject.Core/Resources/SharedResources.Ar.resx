@@ -189,4 +189,22 @@
   <data name="PasswordNotCorrect" xml:space="preserve">
     <value>هذا الباسورد غير صحيح</value>
   </data>
+  <data name="AlgrothimIsWrong" xml:space="preserve">
+    <value>هناك خطا فى لخوارزميه المستخدمه فى التشفير</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>رمز الوصول الذلا تستخدمه ليس منتهى</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>رمز التنشيط الذى تستخدمه ليس موجود</value>
+  </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>رمز التنشيط الذى تستخده انتهت صلاحيه</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>رمز الوصول الذى تستخدمه منتهى الصلاحيه</value>
+  </data>
+  <data name="InvaildToken" xml:space="preserve">
+    <value>رمز الوصول غير موجود</value>
+  </data>
 </root>
