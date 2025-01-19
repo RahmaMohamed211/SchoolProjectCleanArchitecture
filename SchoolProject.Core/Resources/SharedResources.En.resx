@@ -161,53 +161,10 @@
   <data name="DepartmentId" xml:space="preserve">
     <value>department Id</value>
   </data>
-  <data name="PasswordNotEquelConfirmPass" xml:space="preserve">
-    <value>Password And Confirm Password Not Equels</value>
+  <data name="BadRequest" xml:space="preserve">
+    <value>Request Can't be Understand</value>
   </data>
-  <data name="EmailIsExist" xml:space="preserve">
-    <value>Email is Already Exist</value>
-  </data>
-  <data name="UserNameIsExist" xml:space="preserve">
-    <value>UserName is Already Exist</value>
-  </data>
-  <data name="FaildToAddUser" xml:space="preserve">
-    <value>Failed To Add User.</value>
-  </data>
-  <data name="UpdateFailed" xml:space="preserve">
-    <value>Update Operation Failed
-</value>
-  </data>
-  <data name="DeletedFailed" xml:space="preserve">
-    <value>Delete Operation Failed</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="EmailIsNotExist" xml:space="preserve">
-    <value>Email is Not Exist</value>
-  </data>
-  <data name="PasswordNotCorrect" xml:space="preserve">
-    <value>Password is Not Correct</value>
-  </data>
-  <data name="AlgrothimIsWrong" xml:space="preserve">
-    <value>Algrothim Is Wrong</value>
-  </data>
-  <data name="TokenIsNotExpired" xml:space="preserve">
-    <value>Token Is Not Expired</value>
-  </data>
-  <data name="RefreshTokenIsNotFound" xml:space="preserve">
-    <value>Refresh Token Is Not Found</value>
-  </data>
-  <data name="RefreshTokenIsExpired" xml:space="preserve">
-    <value>Refresh Token Is Expired</value>
-  </data>
-  <data name="TokenIsExpired" xml:space="preserve">
-    <value>Token Is Expired</value>
-  </data>
-  <data name="InvaildToken" xml:space="preserve">
-    <value>InvaildToken</value>
+  <data name="AddFailed" xml:space="preserve">
+    <value>Add Failed</value>
   </data>
 </root>

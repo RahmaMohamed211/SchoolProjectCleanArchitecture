@@ -19,7 +19,7 @@ public static class ServiceRegistration
     public static IServiceCollection AddServiceRegistration(this IServiceCollection services,IConfiguration configuration)
     {
         
-        services.AddIdentity<User, IdentityRole<int>>(options =>
+        services.AddIdentity<User, Role>(options =>
         {
             options.Password.RequireDigit = true;
             options.Password.RequireLowercase = true;

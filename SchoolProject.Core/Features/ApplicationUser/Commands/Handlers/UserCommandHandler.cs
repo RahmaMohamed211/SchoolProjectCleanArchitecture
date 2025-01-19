@@ -21,11 +21,11 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
         ,IRequestHandler<DeleteUserCommand, Response<string>>
         ,IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
+
+        #region fields
         private readonly IStringLocalizer<SharedResources> _sharedLocalizer;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        #region fields
-
         #endregion
         #region ctor
         public UserCommandHandler(IStringLocalizer<SharedResources> sharedLocalizer, IMapper mapper, UserManager<User> userManager) : base(sharedLocalizer)
@@ -57,6 +57,16 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
                 return BadRequest<string>(CreateResult.Errors.FirstOrDefault().Description);
 
             //message
+            var users=  await _userManager.Users.ToListAsync();
+            if (users.Count >= 0)
+            {
+                await _userManager.AddToRoleAsync(identityUser, "User");
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(identityUser, "Admin");
+            }
+         
             //sucess
             return Created("");
         }
