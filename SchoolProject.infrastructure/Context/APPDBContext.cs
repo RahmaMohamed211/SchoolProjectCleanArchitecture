@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.infrastructure.Data
 {
-    public class APPDBContext :IdentityDbContext<User,IdentityRole<int>,int,IdentityUserClaim<int>,IdentityUserRole<int>,IdentityUserLogin<int>,IdentityRoleClaim<int>,IdentityUserToken<int>>
+    public class APPDBContext :IdentityDbContext<User,Role,int,IdentityUserClaim<int>,IdentityUserRole<int>,IdentityUserLogin<int>,IdentityRoleClaim<int>,IdentityUserToken<int>>
     {
         public APPDBContext()
         {
