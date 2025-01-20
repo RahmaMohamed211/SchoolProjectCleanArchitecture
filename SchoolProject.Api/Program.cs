@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.infrastructure.Seeder;
 namespace SchoolProject.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -102,6 +103,14 @@ namespace SchoolProject.Api
 
 
             var app = builder.Build();
+
+            using(var scope = app.Services.CreateScope())
+            {
+                var userManger = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var roleManger = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                await RoleSeeder.SeedAsync(roleManger);
+                await UserSeeder.SeedAsync(userManger);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
