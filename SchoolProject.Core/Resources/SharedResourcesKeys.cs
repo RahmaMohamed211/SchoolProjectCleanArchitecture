@@ -40,6 +40,8 @@ namespace SchoolProject.Core.Resources
         public const string TokenIsExpired = "TokenIsExpired";
         public const string InvaildToken = "InvaildToken";
         public const string AddFailed = "AddFailed";
+        public const string RoleNotExist = "RoleNotExist";
+        public const string RoleIsUsed = "RoleIsUsed";
 
 
     }

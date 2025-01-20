@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Features.Authorization.Commands.Models;
 using SchoolProject.Core.Resources;
-using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Authorization.Commands.Validators
 {
-    public class AddRoleValidator:AbstractValidator<AddRoleCommand>
+    public class EditRoleValidator : AbstractValidator<EditRoleCommand>
     {
-       
+
         #region fields
         private readonly IStringLocalizer<SharedResources> _localizer;
-        private readonly IAuthorizationService _authorizationService;
+
         #endregion
         #region ctor
-        public AddRoleValidator(IAuthorizationService authorizationService,IStringLocalizer<SharedResources> localizer)
+        public EditRoleValidator( IStringLocalizer<SharedResources> localizer)
         {
-            _authorizationService = authorizationService;
+         
             _localizer = localizer;
             ApplyValidationRules();
             ApplyCustomValidationRules();
@@ -31,24 +30,24 @@ namespace SchoolProject.Core.Features.Authorization.Commands.Validators
         #region function
         public void ApplyValidationRules()
         {
+            RuleFor(x => x.Id)
+              .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+              .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
 
-            RuleFor(x => x.RoleName)
+
+            RuleFor(x => x.Name)
                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
-               
+
         }
 
         public void ApplyCustomValidationRules()
         {
-            RuleFor(x => x.RoleName)
-                .MustAsync(async (Key, CancellationToken) => !await _authorizationService.IsRoleExistByName(Key))
-               .WithMessage(_localizer[SharedResourcesKeys.IsExist]);
-
            
-
-
         }
 
         #endregion
     }
 }
+
+

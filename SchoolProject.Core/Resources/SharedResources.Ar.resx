@@ -167,4 +167,10 @@
   <data name="AddFailed" xml:space="preserve">
     <value>حدث خطا اثناء الاضافه</value>
   </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>هذه الصلاحيه ليست موجوده</value>
+  </data>
+  <data name="RoleIsUsed" xml:space="preserve">
+    <value>هذا الصلاحيه مستخدمه بالفعل لايمكن الحذف</value>
+  </data>
 </root>

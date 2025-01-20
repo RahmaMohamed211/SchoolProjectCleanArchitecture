@@ -167,4 +167,10 @@
   <data name="AddFailed" xml:space="preserve">
     <value>Add Failed</value>
   </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>Role is not exist</value>
+  </data>
+  <data name="RoleIsUsed" xml:space="preserve">
+    <value>Role is Already in use</value>
+  </data>
 </root>
