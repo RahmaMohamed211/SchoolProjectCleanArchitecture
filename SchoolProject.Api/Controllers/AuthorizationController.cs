@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
 using SchoolProject.Core.Features.ApplicationUser.Commands.Models;
 using SchoolProject.Core.Features.Authorization.Commands.Models;
+using SchoolProject.Core.Features.Authorization.Queries.Models;
+using SchoolProject.Core.Features.Students.Queries.Models;
 using SchoolProject.Data.AppMetaData;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SchoolProject.Api.Controllers
 {
@@ -32,6 +35,24 @@ namespace SchoolProject.Api.Controllers
         {
             var response = await Mediator.Send(new DeleteRoleCommand(id));
             return NewResult(response);
+
+        }
+        [HttpGet(Router.AuthorizationRouting.RoleList)]
+        public async Task<IActionResult> GetRoleList()
+        {
+            var response = await Mediator.Send(new GetRolesListQuery());
+            return Ok(response);
+
+        }
+        [SwaggerOperation(Summary ="idالصلاحيه عن طريق ال",OperationId = "RoleById")]
+        [HttpGet(Router.AuthorizationRouting.GetRoleById)]
+        public async Task<IActionResult> GetRoleById([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new GetRoleByIdQuery()
+            {
+                Id = id
+            });
+            return Ok(response);
 
         }
     }
