@@ -1,4 +1,5 @@
 ﻿using SchoolProject.Data.DTOs;
+using SchoolProject.Data.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace SchoolProject.Service.Abstracts
         public Task<string> DeleteRoleAsync(int roleId);
         public Task<bool> IsRoleExistByName(string roleName);
         public Task<bool> IsRoleExistById(int roleId);
+
+        public Task<List<Role>> GetRolesList();
+        public Task<Role> GetRoleById(int id);
 
     }
 }
