@@ -1,5 +1,5 @@
 ﻿using SchoolProject.Data.Entities.Identity;
-using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Results;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

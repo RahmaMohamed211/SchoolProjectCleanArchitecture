@@ -60,15 +60,18 @@ namespace SchoolProject.Data.AppMetaData
         public static class AuthorizationRouting
         {
             public const string Prefix = Rule + "AuthorizationRouting";
-            public const string Create = Prefix + "/Role/Create";
-            public const string RoleList = Prefix + "/Role/Role-List";
-            public const string Edit = Prefix + "/Role/Edit";
-            public const string Delete = Prefix + "/Role/Delete/{id}";
-            public const string GetRoleById = Prefix + "/Role/RoleById/{id}";
-            public const string ManageUserRoles = Prefix + "/Role/ManageUserRoles/{userId}";
-            public const string UpdateUserRoles = Prefix + "/Role/Update-User-Roles";
+            public const string Roles = Prefix + "/Role";
+            public const string Claims = Prefix + "/Claims";
+            public const string Create = Roles + "/Create";
+            public const string RoleList = Roles + "/Role-List";
+            public const string Edit = Roles + "/Edit";
+            public const string Delete = Roles + "/Delete/{id}";
+            public const string GetRoleById = Roles + "/RoleById/{id}";
+            public const string ManageUserRoles = Roles + "/ManageUserRoles/{userId}";
+            public const string UpdateUserRoles = Roles + "/Update-User-Roles";
+            public const string ManageUserClaims = Claims + "/Manage-User-Claims/{userId}";
         }
 
-        }
+    }
 }
 

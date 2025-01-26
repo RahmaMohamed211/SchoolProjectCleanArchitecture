@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolProject.Data.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
