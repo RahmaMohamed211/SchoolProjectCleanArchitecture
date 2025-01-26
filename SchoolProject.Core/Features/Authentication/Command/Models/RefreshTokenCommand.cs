@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using SchoolProject.Core.Bases;
-using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;

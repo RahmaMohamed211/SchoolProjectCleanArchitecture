@@ -11,13 +11,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
-using static SchoolProject.Data.Helpers.JwtAuthResult;
+using static SchoolProject.Data.Results.JwtAuthResult;
 using System.Security.Cryptography;
 using SchoolProject.infrastructure.Abstract;
 using Azure.Core;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using SchoolProject.Data.Results;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -107,11 +108,9 @@ namespace SchoolProject.Service.Implementations
                 new Claim(ClaimTypes.NameIdentifier,user.UserName),
                 new Claim(nameof(UserClaimModel.PhoneNumber), user.PhoneNumber),
                 new Claim(nameof(UserClaimModel.Id), user.Id.ToString()),
-         
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.Name,user.UserName)
-
-
+                
             };
             foreach(var role in roles)
             {

@@ -1,5 +1,5 @@
 ﻿using SchoolProject.Data.Entities;
-using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

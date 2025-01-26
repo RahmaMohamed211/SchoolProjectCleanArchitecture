@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Results;
 using SchoolProject.infrastructure.Data;
 using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -111,7 +114,10 @@ namespace SchoolProject.Service.Implementations
             
         }
 
-        public async Task<ManageUserRoleResult> GetManageUserRolesData(User user)
+
+
+        public async Task<ManageUserRoleResult> ManageUserRolesData(User user)
+
         {
             var response= new ManageUserRoleResult();
             var RolesList=new List<Roles>();
@@ -179,7 +185,39 @@ namespace SchoolProject.Service.Implementations
             }
 
            }
-            
+
+        public async Task<ManageUserClaimResult> ManageUserClaimsData(User user)
+        {
+            var response= new ManageUserClaimResult();
+            var userClaimsList = new List<UserClaims>();
+            response.UserId = user.Id;
+            //get user claims
+            var UserClaims= await _userManager.GetClaimsAsync(user);//edit
+                                                                     //create edit get print
+            foreach (var claim in ClaimStore.claims)
+            {
+                var userClaim = new UserClaims();
+               userClaim.Type = claim.Type;
+                if (UserClaims.Any(x=>x.Type==claim.Type))
+                {
+                    userClaim.Value= true;
+
+                }
+                else
+                {
+                    userClaim.Value = false;
+                }
+               userClaimsList.Add(userClaim);
+
+            }
+            response.userClaims = userClaimsList;
+            //check if claim exist for user then value=true
+            //return result
+            return response;
+        }
+
+
+
         #endregion
     }
 }

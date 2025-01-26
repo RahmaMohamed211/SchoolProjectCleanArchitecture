@@ -8,8 +8,8 @@ using SchoolProject.Core.Features.Authorization.Commands.Models;
 using SchoolProject.Core.Features.Authorization.Queries.Models;
 using SchoolProject.Core.Features.Authorization.Queries.Results;
 using SchoolProject.Core.Resources;
-using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
+using SchoolProject.Data.Results;
 using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
@@ -23,16 +23,21 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
         IRequestHandler<GetRolesListQuery, Response<List<GetRolesListResult>>>,
         IRequestHandler<GetRoleByIdQuery, Response<GetRoleByIdResult>>,
         IRequestHandler<ManageUserRoleQuery, Response<ManageUserRoleResult>>
+
     {
        
         #region fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
+
+
         private readonly UserManager<User> _userManager;
+
+
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizationService;
         #endregion
-        #region ctor
-        public RoleQueryHandler(UserManager<User> userManager,IMapper mapper,IAuthorizationService authorizationService,IStringLocalizer<SharedResources> stringLocalizer):base(stringLocalizer) 
+        #region ctor    
+        public RoleQueryHandler(UserManager<User> userManager, IMapper mapper,IAuthorizationService authorizationService,IStringLocalizer<SharedResources> stringLocalizer):base(stringLocalizer) 
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -63,11 +68,14 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
             //هنبعت list of roles //هنبدا نشوف roles بتاعت يوزر//make for loop هل role موجود ولا لا 
             var user = await _userManager.FindByIdAsync( request.UserId.ToString());
             if (user == null) return NotFound<ManageUserRoleResult>(_stringLocalizer[SharedResourcesKeys.UserIsNotFound]);
-            var result =await _authorizationService.GetManageUserRolesData(user);
+
+            var result =await _authorizationService.ManageUserRolesData(user);
+
             return Success(result);
 
 
         }
+
         #endregion
 
     }
