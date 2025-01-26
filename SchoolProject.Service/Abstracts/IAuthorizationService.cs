@@ -20,11 +20,11 @@ namespace SchoolProject.Service.Abstracts
         public Task<List<Role>> GetRolesList();
         public Task<Role> GetRoleById(int id);
 
-
         public Task<ManageUserRoleResult> ManageUserRolesData(User user);
         public Task<ManageUserClaimResult> ManageUserClaimsData(User user);
 
         public Task<string> UpdateUserRoles(UpdareUserRoleRequest request);
+
 
 
     }

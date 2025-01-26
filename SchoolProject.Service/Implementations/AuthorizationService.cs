@@ -115,7 +115,9 @@ namespace SchoolProject.Service.Implementations
         }
 
 
+
         public async Task<ManageUserRoleResult> ManageUserRolesData(User user)
+
         {
             var response= new ManageUserRoleResult();
             var RolesList=new List<Roles>();
@@ -213,6 +215,7 @@ namespace SchoolProject.Service.Implementations
             //return result
             return response;
         }
+
 
 
         #endregion

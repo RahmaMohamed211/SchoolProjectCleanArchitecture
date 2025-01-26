@@ -76,6 +76,7 @@ namespace SchoolProject.Api.Controllers
             return NewResult(response);
 
         }
+
         [SwaggerOperation(Summary = "اداره صلاحيه الاستخدام المستخدمين", OperationId = "ManageUserClaim")]
         [HttpGet(Router.AuthorizationRouting.ManageUserClaims)]
         public async Task<IActionResult> ManageUserClaims([FromRoute] int userId)
@@ -87,5 +88,6 @@ namespace SchoolProject.Api.Controllers
             return NewResult(response);
 
         }
+
     }
 }
