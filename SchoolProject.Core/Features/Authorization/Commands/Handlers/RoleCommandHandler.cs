@@ -79,7 +79,7 @@ namespace SchoolProject.Core.Features.Authorization.Commands.Handlers
             }
              return Success<string>(_stringLocalizer[SharedResourcesKeys.Success]);
 
-            }
+        }
         #endregion
 
     }

@@ -185,4 +185,13 @@
   <data name="FailedToUpdateNewRoles" xml:space="preserve">
     <value>Operation is Failed To Update User Roles</value>
   </data>
+  <data name="FailedToRemoveOldCliams" xml:space="preserve">
+    <value>Operation is Failed To Remove Old Claims</value>
+  </data>
+  <data name="FailedToAddNewCliams" xml:space="preserve">
+    <value>Operation is Failed To Add User Roles</value>
+  </data>
+  <data name="FailedToUpdateNewCliams" xml:space="preserve">
+    <value>Operation is  Failed To Update Claims</value>
+  </data>
 </root>

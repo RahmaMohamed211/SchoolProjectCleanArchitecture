@@ -1,6 +1,6 @@
-﻿using SchoolProject.Data.DTOs;
-using SchoolProject.Data.Entities.Identity;
+﻿using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Results;
+using SchoolProject.Data.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +25,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<ManageUserClaimResult> ManageUserClaimsData(User user);
 
         public Task<string> UpdateUserRoles(UpdareUserRoleRequest request);
+        public Task<string> UpdateUserClaims(UpdateUserClaimsRequest request);
 
 
     }

@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Authorization.Commands.Models
 {
-    public class EditRoleCommand: EditRoleRequest, IRequest<Response<string>>
+    public class UpdateUserClaimsCommand: UpdateUserClaimsRequest,IRequest<Response<string>>
     {
-      
     }
 }

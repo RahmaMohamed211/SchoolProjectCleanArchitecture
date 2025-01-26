@@ -47,6 +47,10 @@ namespace SchoolProject.Core.Resources
         public const string FailedToAddNewRoles = "FailedToAddNewRoles";
         public const string FailedToUpdateNewRoles = "FailedToUpdateNewRoles";
 
+        public const string FailedToRemoveOldCliams = "FailedToRemoveOldCliams";
+        public const string FailedToAddNewCliams = "FailedToAddNewCliams";
+        public const string FailedToUpdateNewCliams = "FailedToUpdateNewCliams";
+
 
     }
 }

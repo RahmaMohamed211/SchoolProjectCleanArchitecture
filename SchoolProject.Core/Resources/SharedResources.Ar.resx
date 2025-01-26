@@ -185,4 +185,13 @@
   <data name="FailedToRemoveOldRoles" xml:space="preserve">
     <value>فشلت عمليه حذف الصلاحيات القديمه</value>
   </data>
+  <data name="FailedToRemoveOldCliams" xml:space="preserve">
+    <value>حدث حطأ اثناء حذف صلاحيات الاستخدام القديمة للمستخدمين</value>
+  </data>
+  <data name="FailedToAddNewCliams" xml:space="preserve">
+    <value>فشلت عملية اضافة صلاحيات جديدة للمستخدم</value>
+  </data>
+  <data name="FailedToUpdateNewCliams" xml:space="preserve">
+    <value>حدث خطا اثناء تحديث صلاحيات الاستخدام للمستخدمين</value>
+  </data>
 </root>

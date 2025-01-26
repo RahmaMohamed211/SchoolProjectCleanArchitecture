@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Data.Requests
 {
-    public class UpdareUserRoleRequest:ManageUserRoleResult
+    public class UpdateUserClaimsRequest:ManageUserClaimResult
     {
     }
 }

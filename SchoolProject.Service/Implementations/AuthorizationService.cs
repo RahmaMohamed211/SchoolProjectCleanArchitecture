@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SchoolProject.Data.DTOs;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Helpers;
+using SchoolProject.Data.Requests;
 using SchoolProject.Data.Results;
 using SchoolProject.infrastructure.Data;
 using SchoolProject.Service.Abstracts;
@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -212,6 +213,39 @@ namespace SchoolProject.Service.Implementations
             //check if claim exist for user then value=true
             //return result
             return response;
+        }
+
+        public async Task<string> UpdateUserClaims(UpdateUserClaimsRequest request)
+        {
+            var transact = await _appContext.Database.BeginTransactionAsync();
+            try
+            {
+                var user= await _userManager.FindByIdAsync(request.UserId.ToString());
+                if (user == null)
+                {
+                    return "UserIsNull";
+                }
+                //remove old claims
+                var UserClaims = await _userManager.GetClaimsAsync(user);
+                var RemoveClaimsresult = await _userManager.RemoveClaimsAsync(user, UserClaims);
+                if (!RemoveClaimsresult.Succeeded)
+                {
+                    return "FailedToRemoveOldClaim";
+                }
+                var claims=request.userClaims.Where(x=>x.Value==true).Select(x=>new Claim(x.Type,x.Value.ToString()));
+
+                var updateUserClaimResult =await _userManager.AddClaimsAsync(user, claims);
+                if (!updateUserClaimResult.Succeeded) return "FialedToAddNewClaims";
+                await transact.CommitAsync();
+                return "Success";
+               
+            }
+            catch (Exception ex)
+            {
+                await transact.RollbackAsync();
+                return "FailedToUpdateClaims";
+            }
+
         }
 
 
