@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+
 using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
@@ -8,8 +10,11 @@ using SchoolProject.Core.Features.Authorization.Commands.Models;
 using SchoolProject.Core.Features.Authorization.Queries.Models;
 using SchoolProject.Core.Features.Authorization.Queries.Results;
 using SchoolProject.Core.Resources;
+
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.Data.Results;
+
+
 using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
@@ -23,6 +28,7 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
         IRequestHandler<GetRolesListQuery, Response<List<GetRolesListResult>>>,
         IRequestHandler<GetRoleByIdQuery, Response<GetRoleByIdResult>>,
         IRequestHandler<ManageUserRoleQuery, Response<ManageUserRoleResult>>
+        
 
     {
        
@@ -30,13 +36,13 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
 
 
-        private readonly UserManager<User> _userManager;
-
-
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
         private readonly IAuthorizationService _authorizationService;
         #endregion
-        #region ctor    
+        #region ctor
+
+       
         public RoleQueryHandler(UserManager<User> userManager, IMapper mapper,IAuthorizationService authorizationService,IStringLocalizer<SharedResources> stringLocalizer):base(stringLocalizer) 
         {
             _userManager = userManager;
@@ -63,14 +69,13 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
              
         }
 
+
         public async Task<Response<ManageUserRoleResult>> Handle(ManageUserRoleQuery request, CancellationToken cancellationToken)
         {
             //هنبعت list of roles //هنبدا نشوف roles بتاعت يوزر//make for loop هل role موجود ولا لا 
             var user = await _userManager.FindByIdAsync( request.UserId.ToString());
             if (user == null) return NotFound<ManageUserRoleResult>(_stringLocalizer[SharedResourcesKeys.UserIsNotFound]);
-
             var result =await _authorizationService.ManageUserRolesData(user);
-
             return Success(result);
 
 
