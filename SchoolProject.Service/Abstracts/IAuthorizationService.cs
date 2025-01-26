@@ -28,5 +28,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<string> UpdateUserClaims(UpdateUserClaimsRequest request);
 
 
+
+
     }
 }
