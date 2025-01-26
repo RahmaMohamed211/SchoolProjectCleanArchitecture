@@ -37,6 +37,7 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
 
 
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
         private readonly IAuthorizationService _authorizationService;
         #endregion
         #region ctor
