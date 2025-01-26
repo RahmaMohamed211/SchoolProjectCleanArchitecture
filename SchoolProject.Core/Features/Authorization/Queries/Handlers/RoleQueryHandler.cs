@@ -35,7 +35,6 @@ namespace SchoolProject.Core.Features.Authorization.Queries.Handlers
         #region fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
 
-        private readonly UserManager<User> _userManager;
 
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizationService;
