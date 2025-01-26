@@ -173,4 +173,16 @@
   <data name="RoleIsUsed" xml:space="preserve">
     <value>Role is Already in use</value>
   </data>
+  <data name="UserIsNotFound" xml:space="preserve">
+    <value>User Is Not Found</value>
+  </data>
+  <data name="FailedToRemoveOldRoles" xml:space="preserve">
+    <value>Operation is Failed To Remove Old Roles</value>
+  </data>
+  <data name="FailedToAddNewRoles" xml:space="preserve">
+    <value>Operation is Failed To AddUser Roles</value>
+  </data>
+  <data name="FailedToUpdateNewRoles" xml:space="preserve">
+    <value>Operation is Failed To Update User Roles</value>
+  </data>
 </root>
