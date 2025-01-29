@@ -37,15 +37,18 @@ public static class ServiceRegistration
             options.User.AllowedUserNameCharacters =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = true;
-            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedEmail = true;
         })
         .AddEntityFrameworkStores<APPDBContext>()
         .AddDefaultTokenProviders();
 
         // Jwt Authentication
         var jwtSettings = new JwtSettings();
+        var emailSettings = new EmailSettings();
         configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
+        configuration.GetSection(nameof(emailSettings)).Bind(emailSettings);
         services.AddSingleton(jwtSettings);
+        services.AddSingleton(emailSettings);
 
 
         services.AddAuthentication(x =>

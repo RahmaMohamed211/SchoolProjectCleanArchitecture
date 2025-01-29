@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
 using SchoolProject.Data.Entities.Identity;
 using SchoolProject.infrastructure.Seeder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 namespace SchoolProject.Api
 {
     public class Program
@@ -97,10 +100,18 @@ namespace SchoolProject.Api
                     });
                     
             });
-           
+
 
             #endregion
 
+            builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>(); 
+            builder.Services.AddTransient<IUrlHelper>(x =>
+            {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+
+            });
 
             var app = builder.Build();
 
