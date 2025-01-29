@@ -48,8 +48,11 @@ namespace SchoolProject.Core.Features.Authentication.Command.Handlers
          if (Email == null) return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.EmailIsNotExist]);
             //try to sign in
          var signInResult =  await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+            //confirm email
+            if(!user.EmailConfirmed)
+                return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.EmailNotConfirmed]);
             //if failed return password is wrong
-          if (!signInResult.Succeeded) return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.PasswordNotCorrect]);
+            if (!signInResult.Succeeded) return BadRequest<JwtAuthResult>(_stringLocalizer[SharedResourcesKeys.PasswordNotCorrect]);
             //try to sign in
             //generate token
             var result =  await _authenicationService.GetJWTToken(user);

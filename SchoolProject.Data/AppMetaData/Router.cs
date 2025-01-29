@@ -55,6 +55,7 @@ namespace SchoolProject.Data.AppMetaData
             public const string Delete = Prefix + singleRoute;
             public const string Paginted = Prefix + "/Paginted";
             public const string ValidateToken = Prefix + "/ValidateToken";
+            public const string ConfirmEmail = "/Api/Authentication/ConfirmEmail";
 
         }
         public static class AuthorizationRouting
@@ -71,6 +72,12 @@ namespace SchoolProject.Data.AppMetaData
             public const string UpdateUserRoles = Roles + "/Update-User-Roles";
             public const string ManageUserClaims = Claims + "/Manage-User-Claims/{userId}";
             public const string UpdateUserClaims = Claims + "/Update-User-Claims";
+        }
+        public static class EmailsRoute
+        {
+            public const string Prefix = Rule + "EmailsRoute";
+            public const string SendEmail = Prefix + "/SendEmail";
+          
         }
 
     }

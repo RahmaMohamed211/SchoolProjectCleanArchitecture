@@ -29,9 +29,16 @@ namespace SchoolProject.Api.Controllers
 
         }
         [HttpGet(Router.Authentication.ValidateToken)]
-        public async Task<IActionResult> ValidateToken([FromQuery] AuthorizeUserQuery command)
+        public async Task<IActionResult> ValidateToken([FromQuery] AuthorizeUserQuery query)
         {
-            var response = await Mediator.Send(command);
+            var response = await Mediator.Send(query);
+            return NewResult(response);
+
+        }
+        [HttpGet(Router.Authentication.ConfirmEmail)]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailQuery query)
+        {
+            var response = await Mediator.Send(query);
             return NewResult(response);
 
         }

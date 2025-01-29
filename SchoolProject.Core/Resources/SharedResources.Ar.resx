@@ -194,4 +194,25 @@
   <data name="FailedToUpdateNewCliams" xml:space="preserve">
     <value>حدث خطا اثناء تحديث صلاحيات الاستخدام للمستخدمين</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرساله</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>الايميل</value>
+  </data>
+  <data name="SendEmailFailed" xml:space="preserve">
+    <value>حدث خطا اثناء ارسال الايميل</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>من فضلك قم بتاكيد الايميل</value>
+  </data>
+  <data name="TryToRegisterAgain" xml:space="preserve">
+    <value>حدث خطا غير متوقع اعد محاوله مره اخرى</value>
+  </data>
+  <data name="ErrorWhenConfirmEmail" xml:space="preserve">
+    <value>حدث خطا اثناء تاكيد الايميل</value>
+  </data>
+  <data name="ConfirmEmailDone" xml:space="preserve">
+    <value>تم التاكيد الايميل بنجاح</value>
+  </data>
 </root>
