@@ -2,6 +2,8 @@
 using SchoolProject.infrastructure.Abstract;
 using SchoolProject.infrastructure.Repositieries;
 using SchoolProject.Service.Abstracts;
+using SchoolProject.Service.AuthService.Implementations;
+using SchoolProject.Service.AuthService.Interfaces;
 using SchoolProject.Service.Implementations;
 
 namespace SchoolProject.Service
@@ -16,6 +18,7 @@ namespace SchoolProject.Service
             services.AddTransient<IAuthorizationService, AuthorizationService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IApplicationUserService, ApplicationUserService>();
+            services.AddTransient<ICurrentUserService, CurrentUserService>();
             return services;
         }
     }

@@ -17,6 +17,7 @@ using SchoolProject.infrastructure.Seeder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using SchoolProject.Core.Filters;
 namespace SchoolProject.Api
 {
     public class Program
@@ -112,7 +113,7 @@ namespace SchoolProject.Api
                 return factory.GetUrlHelper(actionContext);
 
             });
-
+            builder.Services.AddTransient<AuthFilter>();
             var app = builder.Build();
 
             using(var scope = app.Services.CreateScope())
