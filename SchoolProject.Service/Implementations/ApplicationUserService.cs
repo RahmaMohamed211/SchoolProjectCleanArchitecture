@@ -65,8 +65,8 @@ namespace SchoolProject.Service.Implementations
                 var returnUrl = requestAccessor.Scheme + "://" + requestAccessor.Host + _urlHelper.Action("ConfirmEmail", "Authentication", new { userId = user.Id, code = code });
                 //$"/Api/V1/Authentication/ConfirmEmail?userId={user.Id}&code={code}";
                 //message or body
-                var body = $"hello {user.UserName} ,Enter the link Please: {returnUrl}";
-                await _emailService.SendEmail(user.Email , body);
+                var message = $"hello {user.UserName} ,To Confirm Email Click Link: <a href='{returnUrl}'></a> ";
+                await _emailService.SendEmail(user.Email , message, "Confirm Email");
                 await trans.CommitAsync();
                 return "Success";
             }

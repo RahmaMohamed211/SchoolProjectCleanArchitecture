@@ -56,6 +56,9 @@ namespace SchoolProject.Data.AppMetaData
             public const string Paginted = Prefix + "/Paginted";
             public const string ValidateToken = Prefix + "/ValidateToken";
             public const string ConfirmEmail = "/Api/Authentication/ConfirmEmail";
+            public const string SendResetPassword = Prefix + "/SendResetPassword";
+            public const string ConfirmResetPassword = Prefix + "/ConfirmResetPassword";
+            public const string ResetPassword = Prefix + "/ResetPassword";
 
         }
         public static class AuthorizationRouting
