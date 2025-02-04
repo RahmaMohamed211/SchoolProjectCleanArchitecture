@@ -19,6 +19,9 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SchoolProject.Data.Results;
+using SchoolProject.infrastructure.Data;
+using EntityFrameworkCore.EncryptColumn.Interfaces;
+using EntityFrameworkCore.EncryptColumn.Util;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -28,14 +31,20 @@ namespace SchoolProject.Service.Implementations
 
         #region fields
         private readonly UserManager<User> _userManager;
+        private readonly IEncryptionProvider _encryptionProvider;
+        private readonly APPDBContext _aPPDBContext;
+        private readonly IEmailService _emailService;
         private readonly JwtSettings _jwtSettings;
         private readonly IRefershTokenRepository _refershTokenRepository;
         
         #endregion
         #region ctor
-        public AuthenicationService(UserManager<User> userManager,JwtSettings jwtSettings,IRefershTokenRepository refershTokenRepository)
+        public AuthenicationService(UserManager<User> userManager,APPDBContext aPPDBContext,IEmailService emailService,JwtSettings jwtSettings,IRefershTokenRepository refershTokenRepository)
         {
             _userManager = userManager;
+            _encryptionProvider = new GenerateEncryptionProvider("3e482d3d1bbe47af818ad6e445ef4e92");
+            _aPPDBContext = aPPDBContext;
+            _emailService = emailService;
             _jwtSettings = jwtSettings;
             _refershTokenRepository = refershTokenRepository;
            
@@ -230,6 +239,75 @@ namespace SchoolProject.Service.Implementations
             if (!confirmEmail.Succeeded)
                 return "ErrorWhenConfirmEmail";
             return "Success";
+
+        }
+
+        public async Task<string> SendResetPasswordCode(string Email)
+        {
+
+            var trans = await _aPPDBContext.Database.BeginTransactionAsync();
+            try
+            {
+                //user
+                var user = await _userManager.FindByEmailAsync(Email);
+                // user not exist=> notfound
+                if (user == null) return "UserNotFound";
+                //generate random number
+                Random generator = new Random();
+                string randomNumber = generator.Next(0, 1000000).ToString("D6");
+                //update user in database code
+                user.Code = randomNumber;
+                var UpdateResult = await _userManager.UpdateAsync(user);
+                if (!UpdateResult.Succeeded)
+                    return "ErrorInUpdateUser";
+                var message = "Code TO Reset Password : " + user.Code;
+                //send code to email
+                var result = await _emailService.SendEmail(user.Email, message, "Reset Password");
+                //success
+                await trans.CommitAsync();
+                return "Success";
+            }
+            catch (Exception ex) 
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+            }
+
+        }
+
+        public async Task<string> ConfirmResetPassword(string Code,string Email)
+        {
+            //get user
+            var user = await _userManager.FindByEmailAsync(Email);
+            // user not exist=> notfound
+            if (user == null) return "UserNotFound";
+            //decrepet code form database user code
+            var userCode=user.Code;
+            //equal with code
+            if (userCode == Code) return "Success";
+            //success
+            return "Failed";
+        }
+
+        public async Task<string> ResetPassword(string Email, string Password)
+        {    
+            var trans= await _aPPDBContext.Database.BeginTransactionAsync();
+            try
+            {
+                //get user
+                var user = await _userManager.FindByEmailAsync(Email);
+                // user not exist=> notfound
+                if (user == null) return "UserNotFound";
+                await _userManager.RemovePasswordAsync(user);
+                await _userManager.AddPasswordAsync(user, Password);
+                await trans.CommitAsync();
+                return "Success";
+            }
+            catch (Exception ex) 
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+            }
 
         }
         #endregion

@@ -215,4 +215,13 @@
   <data name="ConfirmEmailDone" xml:space="preserve">
     <value>تم التاكيد الايميل بنجاح</value>
   </data>
+  <data name="TryAgainInAnotherTime" xml:space="preserve">
+    <value> حدث خطا اثناء العمليه من فضلك حاول ف وقت اخرى</value>
+  </data>
+  <data name="InvaildCode" xml:space="preserve">
+    <value>هذا الكود غير صحيح</value>
+  </data>
+  <data name="PasswordNotCorrect" xml:space="preserve">
+    <value>الباسورد غير صحيح</value>
+  </data>
 </root>
