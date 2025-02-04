@@ -59,7 +59,7 @@ namespace SchoolProject.Api.Controllers
         [HttpPost(Router.Authentication.ResetPassword)]
         public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordCommand command)
         {
-            var response = await Mediator.Send(query);
+            var response = await Mediator.Send(command);
             return NewResult(response);
 
         }
