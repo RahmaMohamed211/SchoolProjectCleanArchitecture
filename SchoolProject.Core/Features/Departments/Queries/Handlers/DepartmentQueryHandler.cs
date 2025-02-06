@@ -8,6 +8,7 @@ using SchoolProject.Core.Features.Students.Queries.Results;
 using SchoolProject.Core.Resources;
 using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Entities.Procedures;
 using SchoolProject.Service.Abstracts;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,18 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Departments.Queries.Handlers
 {
-    public class DepartmentQueryHandler:ResponseHandler,IRequestHandler<GetDepartmentByIDQuery,Response<GetDepartmentByIDResponse>>
+    public class DepartmentQueryHandler:ResponseHandler,
+        IRequestHandler<GetDepartmentByIDQuery,Response<GetDepartmentByIDResponse>>,
+        IRequestHandler<GetDepartmentStudentListCountQuery, Response<List<GetDepartmentStudentListCountResults>>>,
+        IRequestHandler<GetDepartmentStudentCountByIDQuery, Response<GetDepartmentStudentCountByIDResult>>
     {
-       
+
+
+        #region Fields
         private readonly IDepartmentService _departmentService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         private readonly IStudentService _studentService;
-        #region Fields
-
         #endregion
         #region Constructor
         public DepartmentQueryHandler(IStringLocalizer<SharedResources> stringLocalizer,IStudentService studentService,IDepartmentService departmentService,IMapper mapper):base(stringLocalizer) 
@@ -59,6 +63,21 @@ namespace SchoolProject.Core.Features.Departments.Queries.Handlers
                 
             //return response
             return Success(mapper);
+        }
+
+        public async Task<Response<List<GetDepartmentStudentListCountResults>>> Handle(GetDepartmentStudentListCountQuery request, CancellationToken cancellationToken)
+        {
+            var ViewDepartmentresult = await _departmentService.GetViewDepartmentDataAsync();
+            var result = _mapper.Map<List<GetDepartmentStudentListCountResults>>(ViewDepartmentresult);
+            return Success(result);
+        }
+
+        public async Task<Response<GetDepartmentStudentCountByIDResult>> Handle(GetDepartmentStudentCountByIDQuery request, CancellationToken cancellationToken)
+        {
+            var parameters = _mapper.Map<DepartmentStudentCountProcParameters>(request);
+            var procresult= await _departmentService.GetDepartmentStudentCountProcAsync(parameters);
+            var result = _mapper.Map<GetDepartmentStudentCountByIDResult>(procresult.FirstOrDefault());
+            return Success(result);
         }
 
         #endregion

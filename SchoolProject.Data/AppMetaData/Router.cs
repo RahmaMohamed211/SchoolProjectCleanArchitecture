@@ -32,6 +32,8 @@ namespace SchoolProject.Data.AppMetaData
             public const string Prefix = Rule + "Department";
             public const string GetByID = Prefix + "/Id";
             public const string Create = Prefix + "/Create";
+            public const string GetDepartmentStudentsCount = Prefix + "/Department-Students-Count";
+            public const string GetDepartmentStudentsCountById = Prefix + "/Department-Students-Count-ById/{id}";
             public const string Edit = Prefix + "/Edit";
             public const string Delete = Prefix + singleRoute;
 
@@ -82,7 +84,12 @@ namespace SchoolProject.Data.AppMetaData
             public const string SendEmail = Prefix + "/SendEmail";
           
         }
+        public static class InstructorRoute
+        {
+            public const string Prefix = Rule + "InstructorRoute";
+            public const string GetSalarySummationOfInstructor = Prefix + "/Salary-Summation-Of-Instructor";
 
+        }
     }
 }
 
