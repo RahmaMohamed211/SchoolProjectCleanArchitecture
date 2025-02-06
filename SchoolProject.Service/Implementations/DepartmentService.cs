@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
+using SchoolProject.Data.Entities.Procedures;
+using SchoolProject.Data.Entities.Views;
 using SchoolProject.infrastructure.Abstract;
+using SchoolProject.infrastructure.Abstract.Procedures;
+using SchoolProject.infrastructure.Abstract.Views;
 using SchoolProject.infrastructure.Repositieries;
 using SchoolProject.Service.Abstracts;
 using System;
@@ -15,11 +19,16 @@ namespace SchoolProject.Service.Implementations
     {
         #region fields
         private readonly IDepartmentRepository _departmentRepo;
+        private readonly IDepartmentStudentCountProcRepository _departmentStudentCountProcRepository;
+        private readonly IViewRepository<ViewDepartment> _viewRepository;
         #endregion
         #region ctor
-        public DepartmentService(IDepartmentRepository departmentRepository)
+        public DepartmentService(IDepartmentRepository departmentRepository
+                             ,IDepartmentStudentCountProcRepository departmentStudentCountProcRepository,IViewRepository<ViewDepartment> viewRepository)
         {
             _departmentRepo = departmentRepository;
+            _departmentStudentCountProcRepository = departmentStudentCountProcRepository;
+            _viewRepository = viewRepository;
         }
 
 
@@ -93,6 +102,17 @@ namespace SchoolProject.Service.Implementations
             var studentResult = await _departmentRepo.GetTableAsTracking().Where(x => x.DNameAr.Equals(DepartmentAr) & !x.DId.Equals(id)).FirstOrDefaultAsync();
             if (studentResult == null) return false;
             return true;
+        }
+
+        public async Task<List<ViewDepartment>> GetViewDepartmentDataAsync()
+        {
+            var viewDepartment= await _viewRepository.GetTableNoTracking().ToListAsync();
+            return viewDepartment;
+        }
+
+        public async Task<IReadOnlyList<DepartmentStudentCountProc>> GetDepartmentStudentCountProcAsync(DepartmentStudentCountProcParameters parameters)
+        {
+            return await _departmentStudentCountProcRepository.GetDepartmentStudentCountProcAsync(parameters);
         }
         #endregion
 

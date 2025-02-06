@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Entities.Identity;
-
+using SchoolProject.Data.Entities.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +41,11 @@ namespace SchoolProject.infrastructure.Data
 
 
         public DbSet<StudentSubject> StudentSubjects { get; set; }
+
+        #region views
+        public DbSet<ViewDepartment> ViewDepartment { get; set; }
+        
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

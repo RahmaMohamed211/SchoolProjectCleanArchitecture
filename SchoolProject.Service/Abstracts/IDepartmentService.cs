@@ -1,4 +1,6 @@
 ﻿using SchoolProject.Data.Entities;
+using SchoolProject.Data.Entities.Procedures;
+using SchoolProject.Data.Entities.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,9 @@ namespace SchoolProject.Service.Abstracts
         public Task<bool> IsNameExistArExcludeSelf(string DepartmentArn, int id);
 
         public Task<string> DeleteAsync(Department department);
+
+        public Task<List<ViewDepartment>> GetViewDepartmentDataAsync();
+        public Task<IReadOnlyList<DepartmentStudentCountProc>> GetDepartmentStudentCountProcAsync(DepartmentStudentCountProcParameters parameters);
 
     }
 }
