@@ -73,7 +73,7 @@ namespace SchoolProject.Core.Features.Students.Commands.Handlers
             //check if the id is exist or not
             var student = await _studentService.GetByIDAsync(request.Id);
             //return not found
-            if (student == null) return NotFound<string>("Student is not found");
+           // if (student == null) return NotFound<string>("Student is not found");
             //delete
             //call service that make delete
             var result = await _studentService.DeleteAsync(student);

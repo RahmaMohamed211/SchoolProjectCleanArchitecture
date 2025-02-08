@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using SchoolProject.Core.Filters;
+using Serilog;
 namespace SchoolProject.Api
 {
     public class Program
@@ -114,6 +115,14 @@ namespace SchoolProject.Api
 
             });
             builder.Services.AddTransient<AuthFilter>();
+
+
+
+            //serilog
+            Log.Logger=new LoggerConfiguration()
+                       .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+            builder.Services.AddSerilog();
+
             var app = builder.Build();
 
             using(var scope = app.Services.CreateScope())
@@ -143,7 +152,7 @@ namespace SchoolProject.Api
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseCors(CORS);
-
+            app.UseStaticFiles();  //middelware static file/photos
             app.UseAuthentication();
             app.UseAuthorization();
             

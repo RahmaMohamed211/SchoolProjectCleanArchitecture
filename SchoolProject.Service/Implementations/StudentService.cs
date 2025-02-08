@@ -4,11 +4,13 @@ using SchoolProject.Data.Enums;
 using SchoolProject.infrastructure.Abstract;
 using SchoolProject.infrastructure.Repositieries;
 using SchoolProject.Service.Abstracts;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Azure.Core.HttpHeader;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -55,15 +57,9 @@ namespace SchoolProject.Service.Implementations
             return "success";
         }
 
-        public async Task<bool> IsNameExist(string nameEn)
-        {
-            //check if the name is exist or not
-            var studentResult = _studentRepository.GetTableAsTracking().Where(x => x.NameEn.Equals(nameEn)).FirstOrDefault();
-            if (studentResult == null) return false;
-            return true;
-        }
+       
 
-        public async Task<bool> IsNameExistExcludeSelf(string nameEn,int id)
+        public async Task<bool> IsNameEnExistExcludeSelf(string nameEn,int id)
         {
             var studentResult = await _studentRepository.GetTableAsTracking().Where(x => x.NameEn.Equals(nameEn)&!x.StudID.Equals(id)).FirstOrDefaultAsync();
             if (studentResult == null) return false;
@@ -78,18 +74,19 @@ namespace SchoolProject.Service.Implementations
 
         public async Task<string> DeleteAsync(Student student)
         {
-            var trans = _studentRepository.BeginTransaction();
-            try
-            {
+           var trans = _studentRepository.BeginTransaction();
+           try
+           {
                 
-                await _studentRepository.DeleteAsync(student);
-              await trans.CommitAsync();
-                return "success";
+               await _studentRepository.DeleteAsync(student);
+               await trans.CommitAsync();
+               return "success";
             }
-            catch
+            catch(Exception ex) 
             {
                 await trans.RollbackAsync();
-                return "Falied";
+               Log.Error(ex.Message);
+               return "Falied";
             } 
            
         }
@@ -135,6 +132,29 @@ namespace SchoolProject.Service.Implementations
         public IQueryable<Student> GetStudentsByDepartmentIDQuerable(int DID)
         {
             return _studentRepository.GetTableNoTracking().Where(x=>x.DId.Equals(DID)).AsQueryable();
+        }
+
+        public async Task<bool> IsNameArExist(string nameAr)
+        {
+            //check if the name is exist or not
+            var studentResult = _studentRepository.GetTableAsTracking().Where(x => x.NameAr.Equals(nameAr)).FirstOrDefault();
+            if (studentResult == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameEnExist(string nameEn)
+        {
+            //check if the name is exist or not
+            var studentResult = _studentRepository.GetTableAsTracking().Where(x => x.NameEn.Equals(nameEn)).FirstOrDefault();
+            if (studentResult == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameArExistExcludeSelf(string nameAr, int id)
+        {
+            var studentResult = await _studentRepository.GetTableAsTracking().Where(x => x.NameAr.Equals(nameAr) & !x.StudID.Equals(id)).FirstOrDefaultAsync();
+            if (studentResult == null) return false;
+            return true;
         }
         #endregion
 

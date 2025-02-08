@@ -12,7 +12,7 @@ namespace SchoolProject.Api.Controllers
 {
    
     [ApiController]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="Admin,User")]
     [ServiceFilter(typeof(AuthFilter))]
     public class StudentController :AppControllerBase
     {
@@ -59,7 +59,7 @@ namespace SchoolProject.Api.Controllers
             return NewResult(await Mediator.Send(command));
 
         }
-        [Authorize(Policy = "DeleteStudent")]
+       // [Authorize(Policy = "DeleteStudent")]
         [HttpDelete(Router.StudentRouting.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

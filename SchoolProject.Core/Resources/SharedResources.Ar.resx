@@ -224,4 +224,10 @@
   <data name="PasswordNotCorrect" xml:space="preserve">
     <value>الباسورد غير صحيح</value>
   </data>
+  <data name="FailedToUploadImage" xml:space="preserve">
+    <value>حدث خطا اثناء رفع الصوره</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>من فضلك قم باختيار الصوره</value>
+  </data>
 </root>
