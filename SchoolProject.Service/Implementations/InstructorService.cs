@@ -36,7 +36,7 @@ namespace SchoolProject.Service.Implementations
             _instructorFunctionsRepository = instructorFunctionsRepository;
         }
 
-        
+
 
         #endregion
         #region functions
@@ -66,7 +66,7 @@ namespace SchoolProject.Service.Implementations
         }
 
         public async Task<bool> IsNameEnExist(string nameEn)
-        {
+            {
             //check if the name is exist or not
             var instructorResult = await _instructorRepository.GetTableAsTracking().Where(x => x.ENameEn.Equals(nameEn)).FirstOrDefaultAsync();
             if (instructorResult == null) return false;
@@ -74,11 +74,12 @@ namespace SchoolProject.Service.Implementations
         }
 
         public async Task<bool> IsNameEnExistExcludeSelf(string nameEn, int id)
-        {
+                {
             var instructorResult = await _instructorRepository.GetTableAsTracking().Where(x => x.ENameEn.Equals(nameEn) & x.InsId!=id).FirstOrDefaultAsync();
             if (instructorResult == null) return false;
             return true;
-        }
+                }
+                result =await _instructorFunctionsRepository.GetSalarySummationOfInstructor("select * from dbo. GetInstructorData()", cmd);
 
         public async Task<string> AddInstrucorAsync(Instructor instructor, IFormFile file)
         {
