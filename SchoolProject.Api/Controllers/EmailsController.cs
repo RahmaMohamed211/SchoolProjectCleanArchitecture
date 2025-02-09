@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolProject.Api.Base;
@@ -10,6 +11,7 @@ namespace SchoolProject.Api.Controllers
 {
 
     [ApiController]
+    [Authorize(Roles ="Admin,User")]
     public class EmailsController : AppControllerBase
     {
         [HttpPost(Router.EmailsRoute.SendEmail)]

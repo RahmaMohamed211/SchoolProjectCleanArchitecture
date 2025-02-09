@@ -22,5 +22,9 @@ namespace SchoolProject.infrastructure.InfastructureBases
         Task UpdateAsync(T entity);
         Task UpdateRangeAsync(ICollection<T> entities);
         Task DeleteAsync(T entity);
+
+       Task<IDbContextTransaction> BeginTransactionAsync();
+        Task CommitAsync();
+        Task RollBackAsync();
     }
 }

@@ -9,6 +9,6 @@ namespace SchoolProject.infrastructure.Abstract.Functions
 {
     public interface IInstructorFunctionsRepository
     {
-        public Task< decimal> GetSalarySummationOfInstructor(string query,DbCommand cmd);
+        public Task< decimal> GetSalarySummationOfInstructor(string query);
     }
 }

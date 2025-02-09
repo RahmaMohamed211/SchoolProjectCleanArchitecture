@@ -11,16 +11,20 @@ using Microsoft.AspNetCore.Http;
 using SchoolProject.Core.Bases;
 using FluentValidation;
 
+using Serilog;
+
 namespace SchoolProject.Core.Middelware
 {
 
     public class ErrorHandlerMiddleware
      {
         private readonly RequestDelegate _next;
+       // private readonly ILogger _logger;
 
         public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
+            //_logger = logger?? throw new ArgumentNullException();
         }
 
         public async Task Invoke(HttpContext context)
@@ -30,10 +34,11 @@ namespace SchoolProject.Core.Middelware
                 await _next(context);
             }
             catch (Exception error)
-            {
+            { 
                 var response = context.Response;
                 response.ContentType = "application/json";
                 var responseModel = new Response<string>() { Succeeded = false, Message = error?.Message };
+               Log.Error(error, error.Message, context.Request, "");
                 //TODO:: cover all validation errors
                 switch (error)
                 {

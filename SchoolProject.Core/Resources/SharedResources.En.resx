@@ -224,4 +224,10 @@
   <data name="PasswordNotCorrect" xml:space="preserve">
     <value>Password is Not Correct</value>
   </data>
+  <data name="FailedToUploadImage" xml:space="preserve">
+    <value> Failed To Upload Image</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>Please select Image</value>
+  </data>
 </root>

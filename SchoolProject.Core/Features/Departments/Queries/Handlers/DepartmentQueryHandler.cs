@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Departments.Queries.Models;
 using SchoolProject.Core.Features.Departments.Queries.Results;
@@ -10,6 +11,7 @@ using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
 using SchoolProject.Data.Entities.Procedures;
 using SchoolProject.Service.Abstracts;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +62,7 @@ namespace SchoolProject.Core.Features.Departments.Queries.Handlers
             var studentQuerable = _studentService.GetStudentsByDepartmentIDQuerable(request.Id);
             var paginatedList = await studentQuerable.Select(expression).ToPaginatedListAsync(request.StudentPageNumber, request.StudentPageSize);
             mapper.StudentList= paginatedList;
-                
+            Log.Information($"Get Department BY Id {request.Id} !");  
             //return response
             return Success(mapper);
         }

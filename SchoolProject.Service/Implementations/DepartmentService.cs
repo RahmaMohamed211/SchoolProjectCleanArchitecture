@@ -71,7 +71,7 @@ namespace SchoolProject.Service.Implementations
         }
         public async Task<string> DeleteAsync(Department department)
         {
-            var trans = _departmentRepo.BeginTransaction();
+            var trans = await _departmentRepo.BeginTransactionAsync();
             try
             {
 
