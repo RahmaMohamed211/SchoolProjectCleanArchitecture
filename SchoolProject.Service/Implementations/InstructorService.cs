@@ -13,6 +13,7 @@ using SchoolProject.infrastructure.Repositieries;
 using static Azure.Core.HttpHeader;
 using SchoolProject.Data.Entities;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace SchoolProject.Service.Implementations
 {
@@ -104,6 +105,37 @@ namespace SchoolProject.Service.Implementations
           
            
         }
+      
+        public async Task<string> EditInstructorAsync(Instructor instructor, IFormFile? file)
+        {
+            var context = _httpContextAccessor.HttpContext.Request;
+            var baseurl = context.Scheme + "://" + context.Host;
+
+            // ✅ إذا تم رفع صورة جديدة، قم بتحديثها فقط
+            if (file != null)
+            {
+                var imageUrl = await _fileService.UploadImage("Instructors", file);
+
+                switch (imageUrl)
+                {
+                    case "FailedToUploadImage": return "FailedToUploadImage";
+                    case "NoImage": return "NoImage";
+                }
+
+                instructor.Image = baseurl + imageUrl; // ✅ تحديث الصورة فقط إذا تم رفع صورة جديدة
+            }
+
+            try
+            {
+                await _instructorRepository.UpdateAsync(instructor); // ✅ تحديث البيانات مباشرة بدون جلبها مرة أخرى
+                return "Success";
+            }
+            catch (Exception)
+            {
+                return "FailedInEdit";
+            }
+        }
+
 
         public async Task<List<Instructor>> GetInstructorListAsync()
         {
@@ -118,6 +150,35 @@ namespace SchoolProject.Service.Implementations
               .FirstOrDefault();
             return instructor;
         }
+
+        public  Task<Instructor> GetByIDAsync(int id)
+        {
+            var instructor = _instructorRepository.GetByIdAsync(id);
+            return instructor;
+
+        }
+
+        public async Task<string> DeleteAsync(Instructor instructor)
+        {
+            var trans = _instructorRepository.BeginTransaction();
+            try
+            {
+
+                await _instructorRepository.DeleteAsync(instructor);
+                await trans.CommitAsync();
+                return "success";
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                Log.Error(ex.Message);
+                return "failed";
+            }
+        }
+
+
+
+
 
         #endregion
     }
