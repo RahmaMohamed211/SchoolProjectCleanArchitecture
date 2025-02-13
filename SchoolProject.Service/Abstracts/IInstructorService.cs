@@ -18,5 +18,8 @@ namespace SchoolProject.Service.Abstracts
         public Task<bool> IsNameArExistExcludeSelf(string nameAr, int id);
         public Task<bool> IsNameEnExistExcludeSelf(string nameEn, int id);
         public Task<string> AddInstrucorAsync(Instructor instructor,IFormFile file);
+
+        public Task<List<Instructor>> GetInstructorListAsync();
+        public Task<Instructor> GetInstructorByIdAsyncwithInclude(int id);
     }
 }
