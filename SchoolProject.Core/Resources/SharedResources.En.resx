@@ -230,4 +230,7 @@
   <data name="NoImage" xml:space="preserve">
     <value>Please select Image</value>
   </data>
+  <data name="EditFailed" xml:space="preserve">
+    <value> Edit Failed</value>
+  </data>
 </root>

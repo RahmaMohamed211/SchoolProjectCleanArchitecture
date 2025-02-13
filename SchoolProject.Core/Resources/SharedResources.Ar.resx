@@ -230,4 +230,7 @@
   <data name="NoImage" xml:space="preserve">
     <value>من فضلك قم باختيار الصوره</value>
   </data>
+  <data name="EditFailed" xml:space="preserve">
+    <value>حدث خطا اثناء التعديل</value>
+  </data>
 </root>

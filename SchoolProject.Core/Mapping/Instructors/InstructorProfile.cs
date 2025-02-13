@@ -14,9 +14,11 @@ namespace SchoolProject.Core.Mapping.Instructors
             AddInstructorMapping();
             GetInstructorListMapping();
             GetInstructorByIdMapping();
+            EditInstructorMapping();
+
 
 
 
         }
-    }
+}
 }

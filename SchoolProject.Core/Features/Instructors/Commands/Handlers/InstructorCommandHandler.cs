@@ -7,6 +7,7 @@ using SchoolProject.Core.Features.Instructors.Queries.Models;
 using SchoolProject.Core.Resources;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Abstracts;
+using SchoolProject.Service.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ using System.Threading.Tasks;
 namespace SchoolProject.Core.Features.Instructors.Commands.Handlers
 {
     public class InstructorCommandHandler : ResponseHandler,
-                                  IRequestHandler<AddInstructorCommand, Response<string>>
+                                  IRequestHandler<AddInstructorCommand, Response<string>>,
+                                  IRequestHandler<EditInstructorCommand, Response<string>>,
+                                  IRequestHandler<DeleteInstructorCommand, Response<string>>
 
     {
 
@@ -51,7 +54,44 @@ namespace SchoolProject.Core.Features.Instructors.Commands.Handlers
                
             }
                 return  Success("");
-            } 
+            }
+
+        public async Task<Response<string>> Handle(EditInstructorCommand request, CancellationToken cancellationToken)
+        {
+            //check if the id is exist or not
+            var instructorExist = await _instructorService.GetByIDAsync(request.id);
+            //return not found
+        if (instructorExist == null)  return NotFound<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+            //map محتاجين نعمل 
+            //mapping between request and instructor
+            var instructor=_mapper.Map(request, instructorExist);
+            //call service that make edit
+            var result= await _instructorService.EditInstructorAsync(instructor,request.Image);
+            switch (result)
+            {
+                case "NoImage": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NoImage]);
+                case "FailedToUploadImage": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.FailedToUploadImage]);
+                case "FailedInEdit": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.EditFailed]);
+
+
+
+            }
+            return Success("");
+        }
+
+        public async Task<Response<string>> Handle(DeleteInstructorCommand request, CancellationToken cancellationToken)
+        {
+            //check if the id is exist or not
+            var instructorExist = await _instructorService.GetByIDAsync(request.Id);
+            //return not found
+            if (instructorExist == null) return NotFound<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+            //call service that make delete
+            var result = await _instructorService.DeleteAsync(instructorExist);
+
+            //return response
+            if (result == "success") return Deleted<string>($"delete Sussessfully {request.Id}");
+            else return BadRequest<string>();
+        }
         #endregion
 
     }

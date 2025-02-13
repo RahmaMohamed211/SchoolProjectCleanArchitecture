@@ -91,6 +91,8 @@ namespace SchoolProject.Data.AppMetaData
             public const string AddInstructor = Prefix + "/Create";
             public const string List = Prefix + "/List";
             public const string GetByID = Prefix + "/GetByID/{id}";
+            public const string Edit = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete/{id}";
 
         }
     }
