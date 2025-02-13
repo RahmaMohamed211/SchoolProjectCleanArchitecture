@@ -89,6 +89,8 @@ namespace SchoolProject.Data.AppMetaData
             public const string Prefix = Rule + "InstructorRoute";
             public const string GetSalarySummationOfInstructor = Prefix + "/Salary-Summation-Of-Instructor";
             public const string AddInstructor = Prefix + "/Create";
+            public const string List = Prefix + "/List";
+            public const string GetByID = Prefix + "/GetByID/{id}";
 
         }
     }

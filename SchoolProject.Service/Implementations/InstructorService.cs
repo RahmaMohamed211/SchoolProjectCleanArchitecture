@@ -79,7 +79,7 @@ namespace SchoolProject.Service.Implementations
             if (instructorResult == null) return false;
             return true;
                 }
-                result =await _instructorFunctionsRepository.GetSalarySummationOfInstructor("select * from dbo. GetInstructorData()", cmd);
+              //  result =await _instructorFunctionsRepository.GetSalarySummationOfInstructor("select * from dbo. GetInstructorData()", cmd);
 
         public async Task<string> AddInstrucorAsync(Instructor instructor, IFormFile file)
         {
@@ -103,6 +103,20 @@ namespace SchoolProject.Service.Implementations
             }
           
            
+        }
+
+        public async Task<List<Instructor>> GetInstructorListAsync()
+        {
+           return await _instructorRepository.GetInstructorAsync();
+        }
+
+        public async  Task<Instructor> GetInstructorByIdAsyncwithInclude(int id)
+        {
+            var instructor = _instructorRepository.GetTableNoTracking()
+              .Include(x => x.department)
+              .Where(x => x.InsId == id)
+              .FirstOrDefault();
+            return instructor;
         }
 
         #endregion

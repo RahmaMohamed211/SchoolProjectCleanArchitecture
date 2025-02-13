@@ -34,26 +34,28 @@ namespace SchoolProject.infrastructure.Repositieries.Functions
             using (var cmd = _context.Database.GetDbConnection().CreateCommand())
             {
                 if (cmd.Connection.State != ConnectionState.Open)
-        {
+                {
                     cmd.Connection.Open();
                 }
                 //read from list
-               // var reader =await cmd.ExecuteReaderAsync();
+                // var reader =await cmd.ExecuteReaderAsync();
                 //var value=await reader.ToListAsync<GetInstructorFunctionResult>();
 
-            decimal response = 0;
-            cmd.CommandText = query;
+                decimal response = 0;
+                cmd.CommandText = query;
                 var reader = await cmd.ExecuteReaderAsync();
                 var value = await reader.ToListAsync<GetInstructorFunctionResult>();
-            var result = reader.ToString();
+                var result = reader.ToString();
                 if (decimal.TryParse(result, out decimal d))
-            {
-               response = d;
-            }
+                {
+                    response = d;
+                }
                 cmd.Connection.CloseAsync();
-            return response;
-        } 
-        #endregion
+                return response;
+            }
+            #endregion
+
+        }
     }
 }
-}
+#endregion
