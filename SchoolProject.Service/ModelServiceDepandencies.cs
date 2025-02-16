@@ -21,6 +21,7 @@ namespace SchoolProject.Service
             services.AddTransient<ICurrentUserService, CurrentUserService>();
             services.AddTransient<IInstructorService, InstructorService>();
             services.AddTransient<IFileService, FileService>();
+            services.AddTransient<ISubjectService, SubjectService>();
             return services;
         }
     }
