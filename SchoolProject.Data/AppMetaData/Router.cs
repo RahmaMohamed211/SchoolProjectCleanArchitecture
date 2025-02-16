@@ -95,6 +95,18 @@ namespace SchoolProject.Data.AppMetaData
             public const string Delete = Prefix + "/Delete/{id}";
 
         }
+        public static class SubjectRouting
+        {
+            public const string Prefix = Rule + "Subject";
+            public const string List = Prefix + "/list";
+            public const string GetByID = Prefix + singleRoute;
+            public const string Create = Prefix + "/Create";
+            public const string Edit = Prefix + "/Edit";
+            public const string Delete = Prefix + singleRoute;
+            public const string Paginted = Prefix + "/Paginted";
+
+
+        }
     }
 }
 
