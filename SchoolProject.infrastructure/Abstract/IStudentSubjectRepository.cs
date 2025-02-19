@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.infrastructure.Abstract
 {
-    public interface ISubjectRepository:IGenericRepositoryAsync<Subject>
+    public interface IStudentSubjectRepository : IGenericRepositoryAsync<StudentSubject>
     {
-        public Task<Subject>? GetByIdWithStudents(int Id);
-        public Task<Subject>? GetByIdWithInstructor(int Id);
     }
 }

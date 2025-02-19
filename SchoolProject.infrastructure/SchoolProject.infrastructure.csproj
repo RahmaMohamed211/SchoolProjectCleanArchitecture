@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Abstract\IInstructorSubjectRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.JamieEncryptColumn" Version="8.0.69" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />

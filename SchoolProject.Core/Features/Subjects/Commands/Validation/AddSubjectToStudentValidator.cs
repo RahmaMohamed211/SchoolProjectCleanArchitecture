@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
-using SchoolProject.Core.Features.Students.Commands.Models;
 using SchoolProject.Core.Features.Subjects.Commands.Models;
 using SchoolProject.Core.Resources;
 using SchoolProject.Service.Abstracts;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Core.Features.Subjects.Commands.Validation
 {
-    public class AddSubjectValidator : AbstractValidator<AddSubjectCommand>
+    public class AddSubjectToStudentValidator : AbstractValidator<AddSubjectToStudentCommand>
     {
 
 
@@ -20,10 +19,10 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Validation
         private readonly ISubjectService _subjectService;
         private readonly IDepartmentService _departmentService;
         private readonly IStringLocalizer<SharedResources> _localizer;
-     
+
         #endregion
         #region Ctor
-        public AddSubjectValidator(ISubjectService subjectService,IDepartmentService departmentService
+        public AddSubjectToStudentValidator(ISubjectService subjectService, IDepartmentService departmentService
                                  , IStringLocalizer<SharedResources> localizer)
         {
             _subjectService = subjectService;
@@ -38,38 +37,27 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Validation
         #region Actions
         public void ApplyValidationRules()
         {
-            RuleFor(x => x.SubjectNameAr)
+            RuleFor(x => x.SubId)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
-                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
-                .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.MaxLenghtis100]);
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
 
-            RuleFor(x => x.SubjectNameEn)
-              .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
-              .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
-              .MaximumLength(100).WithMessage(_localizer[SharedResourcesKeys.MaxLenghtis100]);
 
-            RuleFor(x => x.Period)
+            RuleFor(x => x.StudentId)
               .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
               .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
-            
+             
 
-          
+            RuleFor(x => x.grade)
+              .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+              .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required]);
+
+
+
         }
 
         public void ApplyCustomValidationRules()
         {
-            RuleFor(x => x.SubjectNameAr)
-                .MustAsync(async (Key, CancellationToken) => !await _subjectService.IsNameArExist(Key))
-            .WithMessage(_localizer[SharedResourcesKeys.IsExist]);
-
-            RuleFor(x => x.SubjectNameEn)
-              .MustAsync(async (Key, CancellationToken) => !await _subjectService.IsNameEnExist(Key))
-          .WithMessage(_localizer[SharedResourcesKeys.IsExist]);
-
-
-            RuleFor(x => x.departmentId)
-              .MustAsync(async (Key, CancellationToken) => await _departmentService.IsDepartmentIdExist(Key))
-              .WithMessage(_localizer[SharedResourcesKeys.IsNoExist]);
+           
 
 
 
@@ -82,5 +70,5 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Validation
 
 
     }
-}
 
+}

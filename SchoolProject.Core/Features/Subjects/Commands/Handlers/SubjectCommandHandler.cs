@@ -18,9 +18,12 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Handlers
 {
     public class SubjectCommandHandler : ResponseHandler
                                        , IRequestHandler<AddSubjectCommand, Response<string>>
+                                       , IRequestHandler<AddSubjectToStudentCommand, Response<string>>
+                                       , IRequestHandler<AddSubjectToInstructorCommand, Response<string>>
     {
         private readonly ISubjectService _subjectService;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         #region fields
 
         #endregion
@@ -29,6 +32,7 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Handlers
         {
             _subjectService = subjectService;
             _mapper = mapper;
+           _stringLocalizer = stringLocalizer;
         }
 
         
@@ -44,6 +48,31 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Handlers
             //retuen response
             if (result == "Success") return Created("");
             else return BadRequest<string>();
+        }
+
+        public async Task<Response<string>> Handle(AddSubjectToStudentCommand request, CancellationToken cancellationToken)
+        {
+            var Studentsubjectmapper = _mapper.Map<StudentSubject>(request);
+            var result= await _subjectService.AddsubjectToStudent(Studentsubjectmapper);
+            switch (result) 
+            {
+                case "StudentNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "SubjectNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "AlreadyExsists": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.IsExist]);
+            }
+            return Success("");
+        }
+
+        public async Task<Response<string>> Handle(AddSubjectToInstructorCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _subjectService.AddsubjectToInstructor(request.InsId,request.SubId);
+            switch (result)
+            {
+                case "InstructorNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "SubjectNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "AlreadyExsists": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.IsExist]);
+            }
+            return Success("");
         }
         #endregion
     }
