@@ -14,5 +14,6 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Models
         public string? SubjectNameAr { get; set; }
         public string? SubjectNameEn { get; set; }
         public int? Period { get; set; }
+        public int departmentId { get; set; }
     }
 }

@@ -15,5 +15,7 @@ namespace SchoolProject.Service.Abstracts
         public Task<string> AddSubject(Subject subject);
 
         public Task<Subject> GetByIDAsync(int id);
+        public Task<string> AddsubjectToStudent(StudentSubject studSubject);
+        public Task<string> AddsubjectToInstructor(int InsId,int SubjId);
     }
 }

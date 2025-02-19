@@ -23,9 +23,23 @@ namespace SchoolProject.infrastructure.Repositieries
         {
             Subjects = dbContext.Set<Subject>();
         }
+
+
         #endregion
         #region handelFunction
+        public async Task<Subject>? GetByIdWithInstructor(int Id)
+        {
+            var result = await _dbContext.Subjects.Include(s => s.Ins_Subjects)
+                 .ThenInclude(s => s.instructor).FirstOrDefaultAsync(s => s.SubID == Id);
+            return result;
+        }
 
+        public async Task<Subject>? GetByIdWithStudents(int Id)
+        {
+            var result= await _dbContext.Subjects.Include(s=>s.StudentSubjects)
+                .ThenInclude(s=>s.Student).FirstOrDefaultAsync(s=>s.SubID == Id);
+            return result;
+        }
         #endregion
     }
 }
