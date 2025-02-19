@@ -38,7 +38,7 @@ namespace SchoolProject.Service.Implementations
         public async Task<string> AddSubject(Subject subject)
         {
           
-            var result= await  _subjectRepository.AddAsync(subject);
+         var result= await  _subjectRepository.AddAsync(subject);
             return "Success";
         }
 
