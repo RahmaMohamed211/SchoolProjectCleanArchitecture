@@ -12,6 +12,14 @@ namespace SchoolProject.Core.Mapping.Subjects
         public SubjectProfile() 
         {
             AddSubjectCommandMapping();
+            EditSubjectCommandMapping();
+            GetListSubjectQueryMapping();
+            GetSubjecByIdQueryMapping();
+            GetSubjectWithInstructorQueyMapping();
+            GetSubjectWithStudentMapping();
+
+
+
 
         } 
     }

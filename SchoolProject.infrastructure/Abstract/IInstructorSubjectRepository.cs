@@ -10,5 +10,6 @@ namespace SchoolProject.infrastructure.Abstract
 {
     public interface IInstructorSubjectRepository:IGenericRepositoryAsync<Ins_Subject>
     {
+        public Task<Ins_Subject> GetInstructorSubject(int insId, int subId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolProject.Data.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Data.Entities
 {
-    public class StudentSubject
+    public class StudentSubject:GeneralLocalizableEntity
     {
         [Key]
         public int StudID { get; set; }

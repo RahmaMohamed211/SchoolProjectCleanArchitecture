@@ -21,9 +21,14 @@ namespace SchoolProject.infrastructure.Repositieries
         {
             insSubject = dbContext.Set<Ins_Subject>();
         }
+
+
         #endregion
         #region function
-
+        public async Task<Ins_Subject> GetInstructorSubject(int insId, int subId)
+        {
+         return  await insSubject.FirstOrDefaultAsync(s=>s.InsId==insId && s.SubId == subId);
+        }
         #endregion
     }
  

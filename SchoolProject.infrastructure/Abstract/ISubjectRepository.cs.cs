@@ -12,5 +12,7 @@ namespace SchoolProject.infrastructure.Abstract
     {
         public Task<Subject>? GetByIdWithStudents(int Id);
         public Task<Subject>? GetByIdWithInstructor(int Id);
+        public Task<List<Subject>> GetSubjectAsync();
+        public Task<Subject> GetSubjectByIDAsyncWithInclude(int id);
     }
 }

@@ -20,6 +20,10 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Handlers
                                        , IRequestHandler<AddSubjectCommand, Response<string>>
                                        , IRequestHandler<AddSubjectToStudentCommand, Response<string>>
                                        , IRequestHandler<AddSubjectToInstructorCommand, Response<string>>
+                                       , IRequestHandler<deleteSubjectCommand, Response<string>>
+                                       , IRequestHandler<deleteSubjectForStudentCommand, Response<string>>
+                                       , IRequestHandler<deleteSubjectToInstructorCommand, Response<string>>
+                                       , IRequestHandler<EditSubjectCommand, Response<string>>
     {
         private readonly ISubjectService _subjectService;
         private readonly IMapper _mapper;
@@ -74,6 +78,60 @@ namespace SchoolProject.Core.Features.Subjects.Commands.Handlers
             }
             return Success("");
         }
+
+        public async Task<Response<string>> Handle(deleteSubjectCommand request, CancellationToken cancellationToken)
+        { //check if the id is exist or not
+            var subject = await _subjectService.GetByIDAsync(request.Id);
+            
+            var result = await _subjectService.deleteSubject(subject);
+
+            //return response
+            if (result == "success") return Deleted<string>($"delete Sussessfully {request.Id}");
+            else return BadRequest<string>();
+        }
+
+        public async Task<Response<string>> Handle(deleteSubjectForStudentCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _subjectService.DeletesubjectToStudent(request.SubId, request.StudentId);
+            switch (result)
+            {
+                case "StudentNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "SubjectNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "AlreadyNotExsists": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.IsNoExist]);
+            }
+            return Success("");
+        }
+
+        public async Task<Response<string>> Handle(deleteSubjectToInstructorCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _subjectService.DeletesubjectToInstructor(request.InsId, request.SubId);
+            switch (result)
+            {
+                case "InstructorNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "SubjectNotFound": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.NotFound]);
+                case "AlreadyNotExsists": return BadRequest<string>(_stringLocalizer[SharedResourcesKeys.IsNoExist]);
+            }
+            return Success("");
+        }
+
+        public async Task<Response<string>> Handle(EditSubjectCommand request, CancellationToken cancellationToken)
+        {
+            //check if the id is exist or not
+            var subject = await _subjectService.GetByIDAsync(request.Id);
+            //return not found
+            if (subject == null) return NotFound<string>("Student is not found");
+            //map محتاجين نعمل 
+            //mapping between request and student
+            var subjectmapper = _mapper.Map(request, subject);
+            //call service that make edit
+            var result = await _subjectService.EditSubjectAsync(subjectmapper);
+
+            //return response
+            if (result == "success") return Success($"Edit Sussessfully {subjectmapper.SubID}");
+            else return BadRequest<string>();
+        }
+
+
         #endregion
     }
 }

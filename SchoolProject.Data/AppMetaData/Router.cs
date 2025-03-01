@@ -100,12 +100,16 @@ namespace SchoolProject.Data.AppMetaData
             public const string Prefix = Rule + "Subject";
             public const string List = Prefix + "/list";
             public const string GetByID = Prefix + singleRoute;
+            public const string GetSubjectWithInstructor = Prefix + "/GetSubjectWithInstructor/{id}";
+            public const string GetSubjectWithStudent = Prefix + "/GetSubjectWithStudent/{id}";
             public const string Create = Prefix + "/Create";
-            public const string Edit = Prefix + "/Edit";
-            public const string Delete = Prefix + singleRoute;
+            public const string EditSubject = Prefix + "/EditSubject";
+            public const string DeleteSubject = Prefix + singleRoute;
             public const string Paginted = Prefix + "/Paginted";
             public const string AddSubjectToStudent = Prefix + "/AddSubjectToStudent";
             public const string AddSubjectToInstructor = Prefix + "/AddSubjectToInstructor";
+            public const string DeleteSubjectToStudent = Prefix + "/DeleteSubjectToStudent";
+            public const string DeleteSubjectToInstructor = Prefix + "/DeleteSubjectToInstructor";
 
 
         }

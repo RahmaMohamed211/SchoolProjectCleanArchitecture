@@ -30,15 +30,25 @@ namespace SchoolProject.infrastructure.Repositieries
         public async Task<Subject>? GetByIdWithInstructor(int Id)
         {
             var result = await _dbContext.Subjects.Include(s => s.Ins_Subjects)
-                 .ThenInclude(s => s.instructor).FirstOrDefaultAsync(s => s.SubID == Id);
+                 .ThenInclude(s => s.instructor).ThenInclude(s=>s.department).FirstOrDefaultAsync(s => s.SubID == Id);
             return result;
         }
 
         public async Task<Subject>? GetByIdWithStudents(int Id)
         {
             var result= await _dbContext.Subjects.Include(s=>s.StudentSubjects)
-                .ThenInclude(s=>s.Student).FirstOrDefaultAsync(s=>s.SubID == Id);
+                .ThenInclude(s=>s.Student).ThenInclude(s => s.Department).FirstOrDefaultAsync(s=>s.SubID == Id);
             return result;
+        }
+
+        public async Task<List<Subject>> GetSubjectAsync()
+        {
+            return await Subjects.Include(x => x.DepartmentSubjects).ThenInclude(ds => ds.Department).ToListAsync();
+        }
+
+        public async Task<Subject> GetSubjectByIDAsyncWithInclude(int id)
+        {
+            return await Subjects.Include(x => x.DepartmentSubjects).ThenInclude(ds => ds.Department).FirstOrDefaultAsync(s=>s.SubID==id);
         }
         #endregion
     }
