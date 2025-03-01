@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolProject.Service", "Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolProject.Core", "SchoolProject.Core\SchoolProject.Core.csproj", "{290CBA3C-262A-479C-8649-2A174D46B216}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolProject.XUnitTest", "SchoolProject.XUnitTest\SchoolProject.XUnitTest.csproj", "{5246CAC1-4575-4262-AFBC-2F42E2B6D8AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{290CBA3C-262A-479C-8649-2A174D46B216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{290CBA3C-262A-479C-8649-2A174D46B216}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{290CBA3C-262A-479C-8649-2A174D46B216}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5246CAC1-4575-4262-AFBC-2F42E2B6D8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5246CAC1-4575-4262-AFBC-2F42E2B6D8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5246CAC1-4575-4262-AFBC-2F42E2B6D8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5246CAC1-4575-4262-AFBC-2F42E2B6D8AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

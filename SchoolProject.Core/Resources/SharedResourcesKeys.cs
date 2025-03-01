@@ -62,6 +62,7 @@ namespace SchoolProject.Core.Resources
         public const string NoImage = "NoImage";
         public const string FailedToUploadImage = "FailedToUploadImage";
         public const string EditFailed = "EditFailed";
+    
 
 
     }

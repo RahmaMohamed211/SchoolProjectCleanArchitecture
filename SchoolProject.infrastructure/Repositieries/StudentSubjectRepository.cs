@@ -23,6 +23,11 @@ namespace SchoolProject.infrastructure.Repositieries
         }
         #endregion
         #region function
+        public async Task<StudentSubject> GetStudentSubject(int StdID, int SubId)
+        {
+            return await studentSubjects.FirstOrDefaultAsync(e => e.StudID == StdID && e.SubID == SubId);
+        }
+
 
         #endregion
     }

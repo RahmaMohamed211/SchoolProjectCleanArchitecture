@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolProject.Data.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SchoolProject.Data.Entities
 {
-    public class DepartmentSubject
+    public class DepartmentSubject:GeneralLocalizableEntity
     {
         [Key]
         public int DId { get; set; }

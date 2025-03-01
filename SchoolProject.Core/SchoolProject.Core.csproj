@@ -41,8 +41,6 @@
   <ItemGroup>
     <Folder Include="Features\Authentication\Command\Results\" />
     <Folder Include="Features\Emails\Queries\" />
-    <Folder Include="Features\Subjects\Queries\" />
-    <Folder Include="Mapping\Subjects\QueriesMapping\" />
   </ItemGroup>
 
 </Project>

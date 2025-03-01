@@ -10,5 +10,7 @@ namespace SchoolProject.infrastructure.Abstract
 {
     public interface IStudentSubjectRepository : IGenericRepositoryAsync<StudentSubject>
     {
+        public Task<StudentSubject> GetStudentSubject(int StdID, int SubId);
     }
+
 }
