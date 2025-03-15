@@ -49,7 +49,11 @@ namespace SchoolProject.XUnitTest
 
 
         }
-
+        [Fact]
+        public void Test2()
+        {
+            Thread.Sleep(5000);
+        }
 
     }
 }
