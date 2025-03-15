@@ -43,18 +43,18 @@ namespace SchoolProject.Core.Features.Students.Commands.Handlers
             var studentmapper = _mapper.Map<Student>(request);
             //add
             var result= await _studentService.AddAsync(studentmapper);
-
+            
             //retuen response
-             if (result == "success") return Created("");
+            if (result == "success") return Created("");
             else return  BadRequest<string>();
 
         }
 
         public async Task<Response<string>> Handle(EditStudentCommand request, CancellationToken cancellationToken)
         {
-
+            int x = 6;
             //check if the id is exist or not
-            var student= await _studentService.GetByIDAsync(request.Id);
+            var student= await _studentService.GetByIDAsync(x);
             //return not found
             if(student == null) return NotFound<string>("Student is not found");
             //map محتاجين نعمل 
